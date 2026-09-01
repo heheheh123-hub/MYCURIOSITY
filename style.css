@@ -2,13 +2,15 @@
 
 :root {
     --midnight: #071426;
-    --midnight-dark: #030914;
+    --midnight-dark: #02050B;
 
     --crimson: #B5121B;
     --crimson-bright: #E21B2D;
+    --crimson-deep: #65060D;
 
     --gold: #D4AF37;
     --gold-bright: #F5D77A;
+    --gold-white: #FFF1B8;
 
     --white: #FFF8E7;
 }
@@ -32,9 +34,10 @@ body {
     font-family: "Inter", sans-serif;
 }
 
-/* =========================
+
+/* =========================================================
    OPENING
-========================= */
+========================================================= */
 
 #opening {
     position: relative;
@@ -45,29 +48,142 @@ body {
     overflow: hidden;
 
     background:
+
+        /* DEEP CRIMSON CORE */
         radial-gradient(
-            circle at 50% 50%,
-            rgba(181, 18, 27, 0.12),
-            transparent 35%
+            ellipse at 50% 48%,
+            rgba(226, 27, 45, 0.22) 0%,
+            rgba(181, 18, 27, 0.15) 18%,
+            rgba(101, 6, 13, 0.12) 34%,
+            transparent 58%
         ),
+
+        /* CRIMSON LOWER ATMOSPHERE */
         radial-gradient(
-            circle at 50% 50%,
-            var(--midnight),
-            var(--midnight-dark) 75%
+            ellipse at 50% 100%,
+            rgba(181, 18, 27, 0.20),
+            transparent 55%
+        ),
+
+        /* MIDNIGHT BLUE */
+        radial-gradient(
+            ellipse at 50% 50%,
+            #0C203A 0%,
+            #071426 40%,
+            #02050B 85%
         );
+
+    isolation: isolate;
 }
 
-/* =========================
+
+/* =========================================================
+   ATMOSPHERIC CRIMSON LIGHT
+========================================================= */
+
+#opening::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 75vw;
+    height: 75vw;
+
+    max-width: 1000px;
+    max-height: 1000px;
+
+    left: 50%;
+    top: 52%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(226, 27, 45, 0.22) 0%,
+            rgba(181, 18, 27, 0.13) 25%,
+            rgba(101, 6, 13, 0.08) 45%,
+            transparent 70%
+        );
+
+    filter: blur(35px);
+
+    animation: crimsonBreath 8s ease-in-out infinite;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+@keyframes crimsonBreath {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.12);
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   SECOND CRIMSON LIGHT
+========================================================= */
+
+#opening::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 35vw;
+    height: 100%;
+
+    left: 50%;
+    bottom: -60%;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(226, 27, 45, 0.28),
+            rgba(181, 18, 27, 0.08) 35%,
+            transparent 70%
+        );
+
+    filter: blur(60px);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =========================================================
    STARS
-========================= */
+========================================================= */
 
 #stars {
+
     position: absolute;
+
     inset: 0;
+
     pointer-events: none;
+
+    z-index: 1;
 }
 
 .star {
+
     position: absolute;
 
     width: 2px;
@@ -80,21 +196,26 @@ body {
     opacity: 0;
 
     box-shadow:
-        0 0 6px rgba(245, 215, 122, 0.8),
-        0 0 14px rgba(212, 175, 55, 0.4);
+        0 0 5px rgba(245, 215, 122, 0.9),
+        0 0 14px rgba(212, 175, 55, 0.55),
+        0 0 28px rgba(212, 175, 55, 0.2);
 
-    animation: appear 2s ease forwards,
-               twinkle 4s ease-in-out infinite;
+    animation:
+        appear 2s ease forwards,
+        twinkle 4s ease-in-out infinite;
 }
 
 @keyframes appear {
+
     to {
         opacity: var(--opacity);
     }
 }
 
 @keyframes twinkle {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
 
@@ -103,52 +224,66 @@ body {
     }
 }
 
-/* =========================
-   CRIMSON GLOW
-========================= */
+
+/* =========================================================
+   CENTRAL LIGHT
+========================================================= */
 
 #openingGlow {
+
     position: absolute;
 
-    width: 55vw;
-    height: 55vw;
+    width: 40vw;
+    height: 40vw;
 
-    max-width: 700px;
-    max-height: 700px;
+    max-width: 600px;
+    max-height: 600px;
 
     left: 50%;
     top: 50%;
 
     transform: translate(-50%, -50%);
 
-    background: var(--crimson);
-
-    opacity: 0.08;
-
-    filter: blur(120px);
-
     border-radius: 50%;
 
-    animation: breathingGlow 7s ease-in-out infinite;
+    background:
+        radial-gradient(
+            circle,
+            rgba(226, 27, 45, 0.25),
+            rgba(181, 18, 27, 0.12) 35%,
+            transparent 70%
+        );
+
+    filter: blur(70px);
+
+    opacity: 0.9;
+
+    animation: centralGlow 7s ease-in-out infinite;
+
+    pointer-events: none;
+
+    z-index: 2;
 }
 
-@keyframes breathingGlow {
-    0%, 100% {
-        transform: translate(-50%, -50%) scale(0.9);
-        opacity: 0.05;
+@keyframes centralGlow {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.85);
     }
 
     50% {
-        transform: translate(-50%, -50%) scale(1.1);
-        opacity: 0.1;
+        transform: translate(-50%, -50%) scale(1.15);
     }
 }
 
-/* =========================
+
+/* =========================================================
    INTRO
-========================= */
+========================================================= */
 
 #intro {
+
     position: absolute;
 
     inset: 0;
@@ -164,178 +299,518 @@ body {
     text-align: center;
 
     z-index: 5;
+
+    padding-bottom: 3vh;
 }
 
-/* =========================
+
+/* =========================================================
    WHISPER
-========================= */
+========================================================= */
 
 #whisper {
-    font-size: 0.75rem;
 
-    letter-spacing: 0.5em;
+    font-size: 0.7rem;
+
+    letter-spacing: 0.65em;
 
     text-transform: uppercase;
 
-    color: rgba(255, 248, 231, 0.45);
+    color: rgba(255, 248, 231, 0.5);
 
-    margin-bottom: 25px;
-
-    opacity: 0;
-
-    animation: fadeIn 3s ease 2s forwards;
-}
-
-/* =========================
-   25
-========================= */
-
-#number {
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: clamp(9rem, 23vw, 18rem);
-
-    font-weight: 300;
-
-    line-height: 0.7;
-
-    color: var(--gold);
+    margin-bottom: 32px;
 
     opacity: 0;
 
-    transform: scale(0.9);
+    animation:
+        whisperReveal 3s ease 2s forwards;
 
     text-shadow:
-        0 0 20px rgba(212, 175, 55, 0.15),
-        0 0 60px rgba(212, 175, 55, 0.08);
-
-    animation: revealNumber 4s ease 4s forwards;
+        0 0 20px rgba(255, 248, 231, 0.12);
 }
 
-@keyframes revealNumber {
+@keyframes whisperReveal {
 
     0% {
         opacity: 0;
-        transform: scale(0.9);
-        filter: blur(8px);
-    }
-
-    60% {
-        opacity: 1;
-        filter: blur(0);
+        transform: translateY(8px);
+        filter: blur(4px);
     }
 
     100% {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
+        filter: blur(0);
     }
 }
 
-/* =========================
+
+/* =========================================================
+   THE 25
+========================================================= */
+
+#number {
+
+    position: relative;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(
+        10rem,
+        25vw,
+        20rem
+    );
+
+    font-weight: 300;
+
+    line-height: 0.62;
+
+    letter-spacing: -0.045em;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--gold-white) 0%,
+            var(--gold-bright) 24%,
+            var(--gold) 58%,
+            #A77C16 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    opacity: 0;
+
+    transform: scale(0.88);
+
+    filter: blur(10px);
+
+    text-shadow: none;
+
+    animation:
+        numberReveal 4s cubic-bezier(0.16, 1, 0.3, 1) 4s forwards,
+        numberFloat 8s ease-in-out 8s infinite;
+
+}
+
+
+/* GOLDEN AURA BEHIND 25 */
+
+#number::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130%;
+    height: 130%;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(212, 175, 55, 0.20),
+            rgba(212, 175, 55, 0.06) 35%,
+            transparent 70%
+        );
+
+    filter: blur(45px);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* CRIMSON AURA */
+
+#number::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 115%;
+    height: 100%;
+
+    left: 50%;
+    top: 55%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(226, 27, 45, 0.22),
+            transparent 65%
+        );
+
+    filter: blur(55px);
+
+    z-index: -2;
+
+    pointer-events: none;
+}
+
+
+@keyframes numberReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.82)
+            translateY(20px);
+
+        filter: blur(14px);
+    }
+
+    45% {
+
+        opacity: 1;
+
+        filter: blur(2px);
+    }
+
+    75% {
+
+        filter: blur(0);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes numberFloat {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            scale(1.015)
+            translateY(-7px);
+    }
+}
+
+
+/* =========================================================
    DATE
-========================= */
+========================================================= */
 
 #date {
-    margin-top: 30px;
 
-    font-size: 0.8rem;
+    margin-top: 42px;
 
-    letter-spacing: 0.6em;
+    font-size: 0.72rem;
+
+    letter-spacing: 0.72em;
 
     color: var(--gold-bright);
 
     opacity: 0;
 
-    animation: fadeIn 2s ease 7s forwards;
+    text-shadow:
+        0 0 15px rgba(245, 215, 122, 0.25);
+
+    animation:
+        dateReveal 2.5s ease 7s forwards;
 }
 
-/* =========================
-   BEGIN
-========================= */
+@keyframes dateReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+
+        letter-spacing: 1em;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+        letter-spacing: 0.72em;
+    }
+}
+
+
+/* =========================================================
+   BEGIN BUTTON
+========================================================= */
 
 #beginButton {
 
-    margin-top: 70px;
+    position: relative;
 
-    padding: 14px 35px;
+    margin-top: 72px;
 
-    border: 1px solid rgba(212, 175, 55, 0.45);
+    padding: 16px 42px;
 
-    border-radius: 50px;
+    border:
 
-    background: rgba(212, 175, 55, 0.04);
+        1px solid
+        rgba(212, 175, 55, 0.55);
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212, 175, 55, 0.07),
+            rgba(181, 18, 27, 0.06)
+        );
 
     color: var(--gold-bright);
 
     font-family: "Inter", sans-serif;
 
-    font-size: 0.7rem;
+    font-size: 0.67rem;
 
-    letter-spacing: 0.4em;
+    font-weight: 400;
+
+    letter-spacing: 0.45em;
 
     cursor: pointer;
 
     opacity: 0;
 
-    animation: fadeIn 2s ease 9s forwards;
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 0 rgba(212, 175, 55, 0),
+        inset 0 0 20px rgba(212, 175, 55, 0.02);
+
+    animation:
+        buttonReveal 2s ease 9s forwards;
 
     transition:
-        background 0.4s ease,
-        border-color 0.4s ease,
-        box-shadow 0.4s ease,
-        transform 0.4s ease;
+        background 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        transform 0.5s ease;
 }
+
+
+#beginButton::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(245, 215, 122, 0.5),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.5s ease;
+
+    pointer-events: none;
+}
+
 
 #beginButton:hover {
 
-    background: rgba(212, 175, 55, 0.12);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212, 175, 55, 0.15),
+            rgba(181, 18, 27, 0.13)
+        );
 
-    border-color: var(--gold);
+    border-color:
+        var(--gold-bright);
 
     box-shadow:
-        0 0 30px rgba(212, 175, 55, 0.15);
+        0 0 25px rgba(212, 175, 55, 0.18),
+        0 0 60px rgba(181, 18, 27, 0.12);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-3px);
 }
+
+
+#beginButton:hover::before {
+
+    opacity: 1;
+}
+
 
 #beginButton:active {
-    transform: scale(0.97);
+
+    transform:
+        scale(0.96);
 }
 
-/* =========================
-   UTILITIES
-========================= */
 
-@keyframes fadeIn {
+@keyframes buttonReveal {
 
     from {
+
         opacity: 0;
+
+        transform:
+            translateY(12px);
     }
 
     to {
-        opacity: 1;
-    }
 
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
 }
 
-/* =========================
+
+/* =========================================================
+   SUBTLE VIGNETTE
+========================================================= */
+
+#opening {
+
+    box-shadow:
+        inset 0 0 180px rgba(0, 0, 0, 0.55);
+}
+
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 600px) {
 
+    #opening::before {
+
+        width: 130vw;
+        height: 130vw;
+    }
+
+    #openingGlow {
+
+        width: 90vw;
+        height: 90vw;
+    }
+
     #whisper {
-        font-size: 0.6rem;
+
+        font-size: 0.55rem;
+
         letter-spacing: 0.35em;
+
+        margin-bottom: 25px;
+    }
+
+    #number {
+
+        font-size:
+            clamp(
+                9rem,
+                40vw,
+                14rem
+            );
+
+        letter-spacing: -0.05em;
     }
 
     #date {
-        font-size: 0.65rem;
-        letter-spacing: 0.45em;
+
+        margin-top: 32px;
+
+        font-size: 0.58rem;
+
+        letter-spacing: 0.42em;
     }
 
     #beginButton {
-        padding: 13px 30px;
+
+        margin-top: 58px;
+
+        padding:
+            14px 32px;
+
+        font-size: 0.62rem;
+    }
+}
+
+
+/* =========================================================
+   TABLET / IPAD
+========================================================= */
+
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    #number {
+
+        font-size:
+            clamp(
+                11rem,
+                27vw,
+                18rem
+            );
     }
 
+    #openingGlow {
+
+        width: 65vw;
+        height: 65vw;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
+    }
 }
