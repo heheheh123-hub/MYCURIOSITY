@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap');
 
 :root {
     --midnight: #071426;
@@ -350,20 +350,15 @@ body {
 ========================================================= */
 
 #number {
-    font-family: "Cormorant Garamond", serif;
-
+    font-family: "Bodoni Moda", serif;
     font-size: clamp(7rem, 17vw, 15rem);
-
     font-weight: 400;
-
     line-height: 0.8;
-
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
 
     color: var(--gold-bright);
 
     opacity: 0;
-
     transform: translateY(18px);
 
     text-shadow:
