@@ -803,3 +803,528 @@ body {
         scroll-behavior: auto !important;
     }
 }
+
+/* =========================================
+   CINEMATIC TRANSITION
+========================================= */
+
+body {
+    overflow: hidden;
+}
+
+#beginButton.disappear {
+    opacity: 0 !important;
+    transform: translateY(15px) scale(0.95);
+    pointer-events: none;
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+#number.awakening {
+    animation:
+        numberAwaken 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes numberAwaken {
+
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    45% {
+        transform: scale(1.06);
+        filter: brightness(1.8);
+    }
+
+    100% {
+        transform: scale(1.25);
+        filter: brightness(1);
+        opacity: 0;
+    }
+}
+
+
+/* Stars get pulled toward the centre */
+
+#stars.pullStars .star {
+    animation:
+        starPull 1.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes starPull {
+    0% {
+        opacity: var(--opacity);
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Opening fades away */
+
+#intro.leave {
+    opacity: 0;
+    transform: scale(1.04);
+    filter: blur(8px);
+
+    transition:
+        opacity 1.4s ease,
+        transform 1.4s ease,
+        filter 1.4s ease;
+}
+
+
+/* =========================================
+   FIRST CINEMATIC SCENE
+========================================= */
+
+#firstScene {
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(181, 18, 27, 0.18),
+            transparent 48%
+        ),
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(212, 175, 55, 0.08),
+            transparent 50%
+        ),
+        #02050B;
+
+    opacity: 0;
+
+    transform: scale(1.03);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+#firstScene.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.sceneGlow {
+
+    position: absolute;
+
+    width: 55vw;
+    height: 55vw;
+
+    max-width: 700px;
+    max-height: 700px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(181, 18, 27, 0.14),
+            transparent 68%
+        );
+
+    filter: blur(50px);
+
+    pointer-events: none;
+}
+
+
+.sceneContent {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 700px;
+
+    padding: 30px;
+
+    animation: sceneContentReveal 1.8s ease 0.4s both;
+}
+
+
+@keyframes sceneContentReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+.sceneEyebrow {
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.55em;
+
+    color: var(--gold-bright);
+
+    margin-bottom: 32px;
+}
+
+
+.sceneContent h1 {
+
+    font-family: "Bodoni Moda", serif;
+
+    font-size: clamp(3rem, 7vw, 6.5rem);
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -0.03em;
+
+    color: var(--white);
+
+    text-shadow:
+        0 0 35px rgba(245, 215, 122, 0.08);
+}
+
+
+.sceneLine {
+
+    width: 70px;
+    height: 1px;
+
+    margin: 38px auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
+}
+
+
+.sceneText {
+
+    font-size: 0.85rem;
+
+    line-height: 1.9;
+
+    letter-spacing: 0.08em;
+
+    color: rgba(255, 248, 231, 0.55);
+}
+
+
+#enterScene {
+
+    margin-top: 50px;
+
+    padding: 15px 35px;
+
+    border: 1px solid rgba(212, 175, 55, 0.45);
+
+    border-radius: 999px;
+
+    background: rgba(212, 175, 55, 0.04);
+
+    color: var(--gold-bright);
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.4em;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease,
+        border-color 0.4s ease;
+}
+
+
+#enterScene:hover {
+
+    transform: translateY(-3px);
+
+    background: rgba(212, 175, 55, 0.1);
+
+    border-color: var(--gold-bright);
+}
+
+
+#firstScene.exit {
+
+    opacity: 0;
+
+    transform: scale(0.97);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+
+/* =========================================
+   SCENE ONE
+========================================= */
+
+#sceneOne {
+
+    position: fixed;
+    inset: 0;
+
+    z-index: 90;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 45%,
+            rgba(181, 18, 27, 0.20),
+            transparent 50%
+        ),
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(212, 175, 55, 0.08),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            #02050B,
+            #071426
+        );
+
+    opacity: 0;
+
+    transform: scale(1.04);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+}
+
+
+#sceneOne.visible {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+.sceneOneSky {
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            circle at 20% 25%,
+            rgba(245, 215, 122, 0.5) 0 1px,
+            transparent 2px
+        ),
+        radial-gradient(
+            circle at 75% 18%,
+            rgba(245, 215, 122, 0.4) 0 1px,
+            transparent 2px
+        ),
+        radial-gradient(
+            circle at 60% 70%,
+            rgba(245, 215, 122, 0.35) 0 1px,
+            transparent 2px
+        ),
+        radial-gradient(
+            circle at 35% 80%,
+            rgba(245, 215, 122, 0.4) 0 1px,
+            transparent 2px
+        );
+
+    opacity: 0.7;
+
+    pointer-events: none;
+}
+
+
+.sceneOneContent {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 850px;
+
+    padding: 30px;
+
+    animation: sceneOneReveal 1.6s ease 0.3s both;
+}
+
+
+@keyframes sceneOneReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+.sceneOneLabel {
+
+    margin-bottom: 30px;
+
+    font-size: 0.6rem;
+
+    letter-spacing: 0.65em;
+
+    color: var(--gold-bright);
+}
+
+
+.sceneOneContent h1 {
+
+    font-family: "Bodoni Moda", serif;
+
+    font-size: clamp(2.8rem, 6vw, 6rem);
+
+    font-weight: 400;
+
+    line-height: 1.08;
+
+    color: var(--white);
+}
+
+
+.sceneOneHint {
+
+    margin-top: 35px;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 0.12em;
+
+    color: rgba(255, 248, 231, 0.45);
+}
+
+
+#sceneOneStart {
+
+    margin-top: 45px;
+
+    padding: 15px 40px;
+
+    border: 1px solid rgba(212, 175, 55, 0.5);
+
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: var(--gold-bright);
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.4em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.4s ease,
+        transform 0.4s ease;
+}
+
+
+#sceneOneStart:hover {
+
+    background: rgba(212, 175, 55, 0.08);
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .sceneContent h1 {
+        font-size: clamp(2.6rem, 12vw, 4.5rem);
+    }
+
+    .sceneText {
+        font-size: 0.72rem;
+    }
+
+    #sceneOne h1 {
+        font-size: clamp(2.5rem, 11vw, 4rem);
+    }
+
+    .sceneGlow {
+        width: 120vw;
+        height: 120vw;
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #firstScene,
+    #sceneOne,
+    .sceneContent,
+    .sceneOneContent {
+        animation: none !important;
+        transition: none !important;
+    }
+
+}
