@@ -1,68 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap');
 
+:root {
+    --midnight: #071426;
+    --midnight-dark: #02050B;
+
+    --crimson: #B5121B;
+    --crimson-bright: #E21B2D;
+    --crimson-deep: #65060D;
+
+    --gold: #D4AF37;
+    --gold-bright: #F5D77A;
+    --gold-white: #FFF1B8;
+
+    --white: #FFF8E7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: var(--midnight-dark);
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+}
 
 
 /* =========================================================
-   MEMORY WORLD
+   OPENING
 ========================================================= */
 
-#memoryWorld {
+#opening {
+    position: relative;
 
-    position: fixed;
-    inset: 0;
-
-    z-index: 120;
+    width: 100%;
+    height: 100dvh;
 
     overflow: hidden;
 
     background:
+
+        /* DEEP CRIMSON CORE */
         radial-gradient(
-            ellipse at 50% 42%,
-            rgba(181, 18, 27, 0.16),
-            transparent 42%
+            ellipse at 50% 48%,
+            rgba(226, 27, 45, 0.22) 0%,
+            rgba(181, 18, 27, 0.15) 18%,
+            rgba(101, 6, 13, 0.12) 34%,
+            transparent 58%
         ),
+
+        /* CRIMSON LOWER ATMOSPHERE */
         radial-gradient(
             ellipse at 50% 100%,
-            rgba(212, 175, 55, 0.10),
+            rgba(181, 18, 27, 0.20),
             transparent 55%
         ),
-        linear-gradient(
-            180deg,
-            #01040A 0%,
-            #061224 52%,
-            #02050B 100%
+
+        /* MIDNIGHT BLUE */
+        radial-gradient(
+            ellipse at 50% 50%,
+            #0C203A 0%,
+            #071426 40%,
+            #02050B 85%
         );
 
-    opacity: 0;
-
-    transform: scale(1.04);
-
-    transition:
-        opacity 1.5s ease,
-        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#memoryWorld.visible {
-
-    opacity: 1;
-
-    transform: scale(1);
+    isolation: isolate;
 }
 
 
-/* ATMOSPHERE */
+/* =========================================================
+   ATMOSPHERIC CRIMSON LIGHT
+========================================================= */
 
-.worldAtmosphere {
+#opening::before {
+
+    content: "";
 
     position: absolute;
 
-    width: 90vw;
-    height: 90vw;
+    width: 75vw;
+    height: 75vw;
 
-    max-width: 1100px;
-    max-height: 1100px;
+    max-width: 1000px;
+    max-height: 1000px;
 
     left: 50%;
-    top: 45%;
+    top: 52%;
 
     transform: translate(-50%, -50%);
 
@@ -71,1244 +103,703 @@
     background:
         radial-gradient(
             circle,
-            rgba(181, 18, 27, 0.16),
-            rgba(101, 6, 13, 0.07) 35%,
-            transparent 70%
-        );
-
-    filter: blur(45px);
-
-    animation:
-        worldBreath 9s ease-in-out infinite;
-
-    pointer-events: none;
-}
-
-@keyframes worldBreath {
-
-    0%,
-    100% {
-        transform:
-            translate(-50%, -50%)
-            scale(0.92);
-    }
-
-    50% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.08);
-    }
-}
-
-
-/* STARS */
-
-.worldStars {
-
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-}
-
-.worldStar {
-
-    position: absolute;
-
-    width: var(--starSize);
-    height: var(--starSize);
-
-    border-radius: 50%;
-
-    background: var(--gold-bright);
-
-    opacity: var(--starOpacity);
-
-    box-shadow:
-        0 0 8px
-        rgba(245, 215, 122, 0.5);
-
-    animation:
-        worldTwinkle
-        4s ease-in-out infinite;
-}
-
-@keyframes worldTwinkle {
-
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: var(--starOpacity);
-    }
-
-    50% {
-        transform: scale(1.8);
-        opacity: 0.8;
-    }
-}
-
-
-/* HEADER */
-
-.worldHeader {
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    z-index: 20;
-
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    padding:
-        30px
-        clamp(25px, 5vw, 70px);
-
-    pointer-events: none;
-}
-
-.worldChapter {
-
-    display: block;
-
-    font-size: 0.55rem;
-
-    letter-spacing: 0.55em;
-
-    color: var(--gold);
-
-    margin-bottom: 7px;
-}
-
-.worldTitle {
-
-    display: block;
-
-    font-size: 0.65rem;
-
-    letter-spacing: 0.35em;
-
-    color: rgba(255,248,231,0.55);
-}
-
-.discoveryCounter {
-
-    display: flex;
-
-    align-items: baseline;
-
-    gap: 5px;
-
-    font-size: 0.55rem;
-
-    letter-spacing: 0.15em;
-
-    color:
-        rgba(255,248,231,0.38);
-}
-
-.discoveryCounter strong {
-
-    font-family:
-        "Bodoni Moda",
-        serif;
-
-    font-size: 1.3rem;
-
-    font-weight: 400;
-
-    color: var(--gold-bright);
-}
-
-
-/* WORLD */
-
-.world {
-
-    position: absolute;
-
-    inset: 0;
-
-    overflow: hidden;
-
-    perspective: 1000px;
-}
-
-
-/* MOON */
-
-.moon {
-
-    position: absolute;
-
-    width: clamp(90px, 12vw, 170px);
-    height: clamp(90px, 12vw, 170px);
-
-    top: 16%;
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 35%,
-            var(--gold-white),
-            var(--gold-bright) 28%,
-            var(--gold) 55%,
-            rgba(212,175,55,0.15) 72%,
-            transparent 73%
-        );
-
-    filter:
-        drop-shadow(
-            0 0 35px
-            rgba(245,215,122,0.22)
-        );
-
-    opacity: 0.65;
-
-    pointer-events: none;
-}
-
-
-/* CENTRAL LIGHT */
-
-.memoryLight {
-
-    position: absolute;
-
-    width: 35vw;
-    height: 35vw;
-
-    max-width: 500px;
-    max-height: 500px;
-
-    left: 50%;
-    top: 57%;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(226,27,45,0.20),
-            rgba(181,18,27,0.08) 40%,
+            rgba(226, 27, 45, 0.22) 0%,
+            rgba(181, 18, 27, 0.13) 25%,
+            rgba(101, 6, 13, 0.08) 45%,
             transparent 70%
         );
 
     filter: blur(35px);
 
+    animation: crimsonBreath 8s ease-in-out infinite;
+
     pointer-events: none;
+
+    z-index: 0;
 }
 
+@keyframes crimsonBreath {
 
-/* GROUND */
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.65;
+    }
 
-.worldGround {
-
-    position: absolute;
-
-    left: -10%;
-    right: -10%;
-
-    bottom: -35%;
-
-    height: 65%;
-
-    border-radius: 50% 50% 0 0;
-
-    background:
-        radial-gradient(
-            ellipse at center,
-            rgba(181,18,27,0.16),
-            rgba(7,20,38,0.8) 45%,
-            #02050B 70%
-        );
-
-    border-top:
-        1px solid
-        rgba(212,175,55,0.08);
-
-    box-shadow:
-        0 -30px 100px
-        rgba(181,18,27,0.08);
-
-    pointer-events: none;
+    50% {
+        transform: translate(-50%, -50%) scale(1.12);
+        opacity: 1;
+    }
 }
 
 
 /* =========================================================
-   WORLD OBJECTS
+   SECOND CRIMSON LIGHT
 ========================================================= */
 
-.worldObject {
-
-    position: absolute;
-
-    z-index: 10;
-
-    border: none;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    -webkit-tap-highlight-color: transparent;
-
-    touch-action: manipulation;
-
-    transition:
-        transform 0.5s ease;
-}
-
-.worldObject::after {
+#opening::after {
 
     content: "";
 
     position: absolute;
 
+    width: 35vw;
+    height: 100%;
+
     left: 50%;
-    top: 50%;
+    bottom: -60%;
 
-    width: 80px;
-    height: 80px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
+    transform: translateX(-50%);
 
     background:
         radial-gradient(
-            circle,
-            rgba(245,215,122,0.13),
+            ellipse,
+            rgba(226, 27, 45, 0.28),
+            rgba(181, 18, 27, 0.08) 35%,
             transparent 70%
         );
 
-    opacity: 0;
+    filter: blur(60px);
 
-    transition:
-        opacity 0.4s ease;
-}
+    pointer-events: none;
 
-.worldObject:hover::after,
-.worldObject:focus-visible::after {
-
-    opacity: 1;
+    z-index: 0;
 }
 
 
-/* FLOWER */
+/* =========================================================
+   STARS
+========================================================= */
 
-.flowerObject {
-
-    left: 31%;
-    bottom: 25%;
-
-    width: 100px;
-    height: 150px;
-}
-
-.flowerStem {
-
-    position: absolute;
-
-    width: 2px;
-    height: 75px;
-
-    left: 50%;
-    bottom: 10px;
-
-    transform:
-        translateX(-50%)
-        rotate(-4deg);
-
-    background:
-        linear-gradient(
-            180deg,
-            var(--gold),
-            var(--crimson-deep)
-        );
-
-    box-shadow:
-        0 0 8px
-        rgba(212,175,55,0.18);
-}
-
-.flowerHead {
-
-    position: absolute;
-
-    left: 50%;
-    top: 22px;
-
-    transform:
-        translateX(-50%);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    color: var(--gold-white);
-
-    font-size: 2rem;
-
-    background:
-        radial-gradient(
-            circle,
-            var(--crimson-bright),
-            var(--crimson-deep) 65%,
-            transparent 66%
-        );
-
-    filter:
-        drop-shadow(
-            0 0 16px
-            rgba(226,27,45,0.4)
-        );
-
-    transition:
-        transform 0.5s ease;
-}
-
-.flowerObject:hover .flowerHead {
-
-    transform:
-        translateX(-50%)
-        scale(1.12)
-        rotate(8deg);
-}
-
-.flowerGlow {
-
-    position: absolute;
-
-    left: 50%;
-    top: 45px;
-
-    width: 90px;
-    height: 90px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(226,27,45,0.2),
-            transparent 70%
-        );
-
-    filter: blur(15px);
-}
-
-
-/* ENVELOPE */
-
-.envelopeObject {
-
-    right: 30%;
-    bottom: 28%;
-
-    width: 130px;
-    height: 100px;
-}
-
-.envelope {
-
-    position: absolute;
-
-    width: 100px;
-    height: 68px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    background:
-        linear-gradient(
-            145deg,
-            #e6c96c,
-            #a9821e
-        );
-
-    border-radius: 4px;
-
-    box-shadow:
-        0 12px 35px
-        rgba(0,0,0,0.35),
-        0 0 25px
-        rgba(212,175,55,0.14);
-
-    transition:
-        transform 0.5s ease;
-}
-
-.envelopeObject:hover .envelope {
-
-    transform:
-        translate(-50%, -50%)
-        translateY(-6px)
-        rotate(-2deg);
-}
-
-.envelopeFlap {
+#stars {
 
     position: absolute;
 
     inset: 0;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f5d77a,
-            #b89028
-        );
+    pointer-events: none;
 
-    clip-path:
-        polygon(
-            0 0,
-            50% 58%,
-            100% 0
-        );
+    z-index: 1;
 }
 
-.envelopePaper {
+.star {
 
     position: absolute;
 
-    width: 35px;
-    height: 45px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -25%);
-
-    background:
-        var(--white);
-
-    box-shadow:
-        0 2px 10px
-        rgba(0,0,0,0.18);
-
-    opacity: 0.8;
-}
-
-.envelopeGlow {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 150px;
-    height: 100px;
-
-    transform:
-        translate(-50%, -50%);
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(212,175,55,0.16),
-            transparent 70%
-        );
-
-    filter: blur(15px);
-}
-
-
-/* RELIC */
-
-.relicObject {
-
-    left: 50%;
-    bottom: 19%;
-
-    width: 100px;
-    height: 100px;
-
-    transform:
-        translateX(-50%);
-}
-
-.relic {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 65px;
-    height: 65px;
-
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-family:
-        "Bodoni Moda",
-        serif;
-
-    font-size: 1.4rem;
-
-    color: var(--midnight-dark);
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-white),
-            var(--gold),
-            #8c6b17
-        );
-
-    box-shadow:
-        0 0 35px
-        rgba(212,175,55,0.3);
-
-    transition:
-        transform 0.5s ease;
-}
-
-.relic::first-letter {
-
-    transform:
-        rotate(-45deg);
-}
-
-.relicObject:hover .relic {
-
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg)
-        scale(1.1);
-}
-
-.relicHalo {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 110px;
-    height: 110px;
-
-    transform:
-        translate(-50%, -50%);
+    width: 2px;
+    height: 2px;
 
     border-radius: 50%;
 
-    border:
-        1px solid
-        rgba(212,175,55,0.18);
+    background: var(--gold-bright);
 
-    animation:
-        relicPulse 3s ease-in-out infinite;
-}
-
-@keyframes relicPulse {
-
-    0%,
-    100% {
-        transform:
-            translate(-50%, -50%)
-            scale(0.9);
-
-        opacity: 0.3;
-    }
-
-    50% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.08);
-
-        opacity: 0.8;
-    }
-}
-
-
-/* DISTANT LIGHT */
-
-.distantObject {
-
-    left: 50%;
-    top: 31%;
-
-    width: 50px;
-    height: 50px;
-
-    transform:
-        translateX(-50%);
-}
-
-.distantObject span {
-
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-        var(--gold-white);
+    opacity: 0;
 
     box-shadow:
-        0 0 12px
-        var(--gold-bright),
-        0 0 35px
-        rgba(245,215,122,0.5);
+        0 0 5px rgba(245, 215, 122, 0.9),
+        0 0 14px rgba(212, 175, 55, 0.55),
+        0 0 28px rgba(212, 175, 55, 0.2);
 
     animation:
-        distantPulse 3s ease-in-out infinite;
+        appear 2s ease forwards,
+        twinkle 4s ease-in-out infinite;
 }
 
-@keyframes distantPulse {
+@keyframes appear {
+
+    to {
+        opacity: var(--opacity);
+    }
+}
+
+@keyframes twinkle {
 
     0%,
     100% {
-        transform:
-            translate(-50%, -50%)
-            scale(0.8);
-
-        opacity: 0.45;
+        transform: scale(1);
     }
 
     50% {
-        transform:
-            translate(-50%, -50%)
-            scale(1.5);
-
-        opacity: 1;
-    }
-}
-
-
-/* OBJECT CLICK */
-
-.objectActivated {
-
-    animation:
-        objectClick 0.7s ease;
-}
-
-@keyframes objectClick {
-
-    0% {
-        transform:
-            scale(1);
-    }
-
-    35% {
-        transform:
-            scale(1.16);
-    }
-
-    100% {
-        transform:
-            scale(1);
-    }
-}
-
-.relicObject.objectActivated {
-
-    animation:
-        relicClick 0.7s ease;
-}
-
-@keyframes relicClick {
-
-    0% {
-        transform:
-            translateX(-50%)
-            scale(1);
-    }
-
-    35% {
-        transform:
-            translateX(-50%)
-            scale(1.18);
-    }
-
-    100% {
-        transform:
-            translateX(-50%)
-            scale(1);
+        transform: scale(1.8);
     }
 }
 
 
 /* =========================================================
-   HINT
+   CENTRAL LIGHT
 ========================================================= */
 
-.worldHint {
+#openingGlow {
 
     position: absolute;
 
-    z-index: 20;
+    width: 40vw;
+    height: 40vw;
+
+    max-width: 600px;
+    max-height: 600px;
 
     left: 50%;
-    bottom: 7%;
+    top: 50%;
 
-    transform:
-        translateX(-50%);
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(226, 27, 45, 0.25),
+            rgba(181, 18, 27, 0.12) 35%,
+            transparent 70%
+        );
+
+    filter: blur(70px);
+
+    opacity: 0.9;
+
+    animation: centralGlow 7s ease-in-out infinite;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+@keyframes centralGlow {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro {
+
+    position: absolute;
+
+    inset: 0;
 
     display: flex;
 
     flex-direction: column;
 
-    align-items: center;
+    justify-content: center;
 
-    gap: 7px;
+    align-items: center;
 
     text-align: center;
 
-    pointer-events: none;
+    z-index: 5;
 
-    animation:
-        hintFade 2s ease 1.5s both;
+    padding-bottom: 3vh;
 }
 
-.worldHint span:first-child {
 
-    font-family:
-        "Bodoni Moda",
-        serif;
+/* =========================================================
+   WHISPER
+========================================================= */
 
-    font-size: 1rem;
+#whisper {
 
-    color:
-        rgba(255,248,231,0.65);
-}
+    font-size: 0.7rem;
 
-.worldHint span:last-child {
-
-    font-size: 0.55rem;
-
-    letter-spacing: 0.35em;
+    letter-spacing: 0.65em;
 
     text-transform: uppercase;
 
-    color:
-        rgba(245,215,122,0.45);
+    color: rgba(255, 248, 231, 0.5);
+
+    margin-bottom: 32px;
+
+    opacity: 0;
+
+    animation:
+        whisperReveal 3s ease 2s forwards;
+
+    text-shadow:
+        0 0 20px rgba(255, 248, 231, 0.12);
 }
 
-@keyframes hintFade {
+@keyframes whisperReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+        filter: blur(4px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+/* =========================================================
+   THE 25
+========================================================= */
+
+#number {
+    font-family: "Bodoni Moda", serif;
+    font-size: clamp(7rem, 17vw, 15rem);
+    font-weight: 400;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+
+    color: var(--gold-bright);
+
+    opacity: 0;
+    transform: translateY(18px);
+
+    text-shadow:
+        0 0 12px rgba(245, 215, 122, 0.18);
+
+    animation: numberReveal 3s
+        cubic-bezier(0.16, 1, 0.3, 1)
+        4s forwards;
+}
+
+@keyframes numberReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+/* GOLDEN AURA BEHIND 25 */
+
+#number::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130%;
+    height: 130%;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(212, 175, 55, 0.20),
+            rgba(212, 175, 55, 0.06) 35%,
+            transparent 70%
+        );
+
+    filter: blur(45px);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* CRIMSON AURA */
+
+#number::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 115%;
+    height: 100%;
+
+    left: 50%;
+    top: 55%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(226, 27, 45, 0.22),
+            transparent 65%
+        );
+
+    filter: blur(55px);
+
+    z-index: -2;
+
+    pointer-events: none;
+}
+
+
+@keyframes numberReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.82)
+            translateY(20px);
+
+        filter: blur(14px);
+    }
+
+    45% {
+
+        opacity: 1;
+
+        filter: blur(2px);
+    }
+
+    75% {
+
+        filter: blur(0);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes numberFloat {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            scale(1.015)
+            translateY(-7px);
+    }
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+#date {
+
+    margin-top: 42px;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.72em;
+
+    color: var(--gold-bright);
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 15px rgba(245, 215, 122, 0.25);
+
+    animation:
+        dateReveal 2.5s ease 7s forwards;
+}
+
+@keyframes dateReveal {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+
+        letter-spacing: 1em;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+        letter-spacing: 0.72em;
+    }
+}
+
+
+/* =========================================================
+   BEGIN BUTTON
+========================================================= */
+
+#beginButton {
+
+    position: relative;
+
+    margin-top: 72px;
+
+    padding: 16px 42px;
+
+    border:
+
+        1px solid
+        rgba(212, 175, 55, 0.55);
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212, 175, 55, 0.07),
+            rgba(181, 18, 27, 0.06)
+        );
+
+    color: var(--gold-bright);
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 0.67rem;
+
+    font-weight: 400;
+
+    letter-spacing: 0.45em;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 0 rgba(212, 175, 55, 0),
+        inset 0 0 20px rgba(212, 175, 55, 0.02);
+
+    animation:
+        buttonReveal 2s ease 9s forwards;
+
+    transition:
+        background 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+#beginButton::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(245, 215, 122, 0.5),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.5s ease;
+
+    pointer-events: none;
+}
+
+
+#beginButton:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(212, 175, 55, 0.15),
+            rgba(181, 18, 27, 0.13)
+        );
+
+    border-color:
+        var(--gold-bright);
+
+    box-shadow:
+        0 0 25px rgba(212, 175, 55, 0.18),
+        0 0 60px rgba(181, 18, 27, 0.12);
+
+    transform:
+        translateY(-3px);
+}
+
+
+#beginButton:hover::before {
+
+    opacity: 1;
+}
+
+
+#beginButton:active {
+
+    transform:
+        scale(0.96);
+}
+
+
+@keyframes buttonReveal {
 
     from {
+
         opacity: 0;
+
         transform:
-            translateX(-50%)
             translateY(12px);
     }
 
     to {
+
         opacity: 1;
+
         transform:
-            translateX(-50%)
             translateY(0);
     }
 }
 
 
 /* =========================================================
-   INTERACTION PANEL
+   SUBTLE VIGNETTE
 ========================================================= */
 
-.interactionPanel {
-
-    position: absolute;
-
-    z-index: 50;
-
-    left: 50%;
-    top: 50%;
-
-    width:
-        min(88vw, 600px);
-
-    max-height: 80vh;
-
-    padding: 55px 45px;
-
-    transform:
-        translate(-50%, -45%)
-        scale(0.94);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    overflow: auto;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(7,20,38,0.94),
-            rgba(2,5,11,0.97)
-        );
-
-    border:
-        1px solid
-        rgba(212,175,55,0.2);
+#opening {
 
     box-shadow:
-        0 30px 100px
-        rgba(0,0,0,0.65),
-        0 0 80px
-        rgba(181,18,27,0.08);
-
-    backdrop-filter:
-        blur(25px);
-
-    transition:
-        opacity 0.5s ease,
-        transform 0.6s cubic-bezier(0.16,1,0.3,1);
-}
-
-.interactionPanel.open {
-
-    opacity: 1;
-
-    transform:
-        translate(-50%, -50%)
-        scale(1);
-
-    pointer-events: auto;
-}
-
-#closeInteraction {
-
-    position: absolute;
-
-    top: 15px;
-    right: 20px;
-
-    width: 35px;
-    height: 35px;
-
-    border: none;
-
-    background: transparent;
-
-    color:
-        rgba(255,248,231,0.45);
-
-    font-size: 1.7rem;
-
-    cursor: pointer;
-
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
-}
-
-#closeInteraction:hover {
-
-    color: var(--gold-bright);
-
-    transform:
-        rotate(90deg);
-}
-
-.interactionSymbol {
-
-    font-family:
-        "Bodoni Moda",
-        serif;
-
-    font-size: 2rem;
-
-    color:
-        var(--gold-bright);
-
-    margin-bottom: 25px;
-
-    text-shadow:
-        0 0 25px
-        rgba(245,215,122,0.25);
-}
-
-.interactionEyebrow {
-
-    font-size: 0.55rem;
-
-    letter-spacing: 0.5em;
-
-    color:
-        var(--gold);
-
-    margin-bottom: 25px;
-}
-
-.interactionPanel h2 {
-
-    font-family:
-        "Bodoni Moda",
-        serif;
-
-    font-size:
-        clamp(2rem, 5vw, 3.6rem);
-
-    line-height: 1.08;
-
-    font-weight: 400;
-
-    color: var(--white);
-}
-
-.interactionLine {
-
-    width: 55px;
-    height: 1px;
-
-    margin: 30px auto;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold),
-            transparent
-        );
-}
-
-.interactionPanel p:last-child {
-
-    font-size: 0.78rem;
-
-    line-height: 1.8;
-
-    letter-spacing: 0.05em;
-
-    color:
-        rgba(255,248,231,0.45);
+        inset 0 0 180px rgba(0, 0, 0, 0.55);
 }
 
 
 /* =========================================================
-   DISCOVERY TOAST
-========================================================= */
-
-.discoveryToast {
-
-    position: absolute;
-
-    z-index: 70;
-
-    left: 50%;
-    top: 13%;
-
-    transform:
-        translate(-50%, -15px);
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 7px;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.5s ease,
-        transform 0.6s ease;
-}
-
-.discoveryToast.show {
-
-    opacity: 1;
-
-    transform:
-        translate(-50%, 0);
-}
-
-.toastEyebrow {
-
-    font-size: 0.5rem;
-
-    letter-spacing: 0.5em;
-
-    color: var(--gold);
-
-}
-
-.toastText {
-
-    font-family:
-        "Bodoni Moda",
-        serif;
-
-    font-size: 1.05rem;
-
-    color:
-        var(--white);
-
-    text-align: center;
-}
-
-
-/* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 600px) {
 
-    .worldHeader {
+    #opening::before {
 
-        padding:
-            22px 20px;
+        width: 130vw;
+        height: 130vw;
     }
 
-    .worldTitle {
-        font-size: 0.55rem;
-    }
-
-    .discoveryCounter {
-        font-size: 0.48rem;
-    }
-
-    .discoveryCounter strong {
-        font-size: 1.05rem;
-    }
-
-    .moon {
-
-        top: 14%;
-
-        width: 85px;
-        height: 85px;
-    }
-
-    .flowerObject {
-
-        left: 16%;
-        bottom: 24%;
-
-        transform:
-            scale(0.82);
-    }
-
-    .envelopeObject {
-
-        right: 12%;
-        bottom: 26%;
-
-        transform:
-            scale(0.78);
-    }
-
-    .relicObject {
-
-        bottom: 17%;
-
-        transform:
-            translateX(-50%)
-            scale(0.82);
-    }
-
-    .distantObject {
-
-        top: 28%;
-    }
-
-    .interactionPanel {
+    #openingGlow {
 
         width: 90vw;
-
-        padding:
-            50px 25px
-            40px;
+        height: 90vw;
     }
 
-    .interactionPanel h2 {
+    #whisper {
+
+        font-size: 0.55rem;
+
+        letter-spacing: 0.35em;
+
+        margin-bottom: 25px;
+    }
+
+    #number {
 
         font-size:
-            clamp(1.8rem, 9vw, 3rem);
+            clamp(
+                9rem,
+                40vw,
+                14rem
+            );
+
+        letter-spacing: -0.05em;
     }
 
-    .worldHint {
+    #date {
 
-        bottom: 5%;
+        margin-top: 32px;
+
+        font-size: 0.58rem;
+
+        letter-spacing: 0.42em;
     }
 
-    .worldHint span:first-child {
+    #beginButton {
 
-        font-size: 0.85rem;
+        margin-top: 58px;
+
+        padding:
+            14px 32px;
+
+        font-size: 0.62rem;
     }
 }
 
+
+/* =========================================================
+   TABLET / IPAD
+========================================================= */
 
 @media (min-width: 601px) and (max-width: 1024px) {
 
-    .flowerObject {
-        left: 23%;
+    #number {
+
+        font-size:
+            clamp(
+                11rem,
+                27vw,
+                18rem
+            );
     }
 
-    .envelopeObject {
-        right: 23%;
-    }
+    #openingGlow {
 
-    .relicObject {
-        bottom: 20%;
+        width: 65vw;
+        height: 65vw;
     }
 }
 
 
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
 
-    #memoryWorld,
-    .worldAtmosphere,
-    .worldStar,
-    .relicHalo,
-    .distantObject span,
-    .worldHint,
-    .interactionPanel {
+    *,
+    *::before,
+    *::after {
 
-        animation: none !important;
-        transition: none !important;
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
     }
 }
