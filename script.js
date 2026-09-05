@@ -1,4 +1,3 @@
-```js
 const starsContainer = document.getElementById("stars");
 const beginButton = document.getElementById("beginButton");
 
@@ -21,8 +20,7 @@ function createStars() {
             Math.random() * 0.7 + 0.2
         );
 
-        star.style.animationDelay = `${Math.random() * 4}s`;
-
+star.style.animationDelay = (Math.random() * 4) + "s";
         starsContainer.appendChild(star);
     }
 }
