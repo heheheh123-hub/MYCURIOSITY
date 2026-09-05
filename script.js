@@ -304,6 +304,37 @@ function createSceneOne() {
 
     <div class="forestRevealLine"></div>
 
+    <!-- DISCOVERY 02 -->
+<div class="memoryReveal" id="memoryReveal">
+
+    <div class="memoryRevealGlow"></div>
+
+    <div class="memoryRevealContent">
+
+        <span>DISCOVERY 02 / 25</span>
+
+        <div class="memoryRevealLine"></div>
+
+        <div class="memoryPhotoPlaceholder">
+            AYAT
+        </div>
+
+        <h2>
+            The first memory.
+        </h2>
+
+        <p>
+            Some moments deserve to be remembered forever.
+        </p>
+
+        <button id="memoryContinue">
+            CONTINUE
+        </button>
+
+    </div>
+
+</div>
+
     <h2>
         The beginning.
     </h2>
@@ -869,47 +900,34 @@ function completePondPuzzle() {
     const forest =
         document.querySelector(".forestWorld");
 
-
     const reveal =
         document.getElementById("forestReveal");
 
-
     if (reveal) {
-
-        reveal.classList.remove(
-            "show"
-        );
-
+        reveal.classList.remove("show");
     }
-
 
     if (forest) {
-
-        forest.classList.add(
-            "memoryUnlocked"
-        );
-
+        forest.classList.add("memoryUnlocked");
     }
-
 
     setTimeout(function() {
 
         const counter =
-            document.querySelector(
-                ".forestCounter span"
-            );
-
+            document.querySelector(".forestCounter span");
 
         if (counter) {
-
             counter.textContent = "02";
-
         }
 
+        const memoryReveal =
+            document.getElementById("memoryReveal");
 
-        console.log(
-            "DISCOVERY 02 UNLOCKED"
-        );
+        if (memoryReveal) {
+            memoryReveal.classList.add("show");
+        }
+
+        console.log("DISCOVERY 02 UNLOCKED");
 
     }, 1200);
 
