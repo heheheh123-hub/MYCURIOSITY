@@ -1370,885 +1370,196 @@ body {
 }
 
 /* =========================================================
-   SCENE ONE — THE MEMORY ROOM
+   SCENE ONE — THE WORLD
    ========================================================= */
 
 #sceneOne {
+
     position: fixed;
+
     inset: 0;
+
     z-index: 100;
 
     overflow: hidden;
 
     opacity: 0;
 
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            rgba(181, 18, 27, 0.14),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(212, 175, 55, 0.08),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
-            #02050B,
-            #071426 55%,
-            #02050B
-        );
+    background: #02050B;
 
-    transition: opacity 2s ease;
+    transition:
+        opacity 2.5s ease;
+
 }
+
 
 #sceneOne.visible {
     opacity: 1;
 }
 
 
-.memoryWorld {
+/* WORLD */
+
+.world {
+
     position: relative;
 
     width: 100%;
+
     height: 100%;
 
     overflow: hidden;
+
+    --mouse-x: 0;
+
+    --mouse-y: 0;
+
 }
 
 
-/* ATMOSPHERE */
+/* SKY */
 
-.worldGlow {
+.worldSky {
+
     position: absolute;
 
-    width: 70vw;
-    height: 70vw;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
+    inset: 0;
 
     background:
+
         radial-gradient(
-            circle,
-            rgba(181, 18, 27, 0.12),
+            ellipse at 50% 72%,
+            rgba(181, 18, 27, 0.24),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(212, 175, 55, 0.10),
+            transparent 45%
+        ),
+
+        linear-gradient(
+            180deg,
+            #01030A 0%,
+            #030916 42%,
+            #071426 72%,
+            #16070B 100%
+        );
+
+    transform:
+        scale(1.08)
+        translate(
+            calc(var(--mouse-x) * -8px),
+            calc(var(--mouse-y) * -5px)
+        );
+
+    transition:
+        transform 2s ease;
+
+}
+
+
+/* HAZE */
+
+.worldHaze {
+
+    position: absolute;
+
+    left: -10%;
+
+    bottom: 12%;
+
+    width: 120%;
+
+    height: 45%;
+
+    background:
+
+        radial-gradient(
+            ellipse,
+            rgba(181,18,27,0.18),
             transparent 65%
         );
 
-    filter: blur(30px);
+    filter: blur(45px);
 
-    pointer-events: none;
+    opacity: 0;
+
+    transition:
+        opacity 4s ease;
+
 }
 
 
-.worldParticles {
+.worldAwake .worldHaze {
+    opacity: 1;
+}
+
+
+/* STARS */
+
+.worldStars {
+
     position: absolute;
+
     inset: 0;
 
-    pointer-events: none;
+    z-index: 2;
+
+    transform:
+        translate(
+            calc(var(--mouse-x) * -12px),
+            calc(var(--mouse-y) * -8px)
+        );
+
+    transition:
+        transform 2s ease;
+
 }
 
 
-.worldParticle {
+.worldStar {
+
     position: absolute;
+
+    display: block;
 
     border-radius: 50%;
 
-    background: var(--gold);
+    background:
+        var(--gold-white);
 
     opacity: 0;
 
     box-shadow:
-        0 0 8px rgba(245, 215, 122, 0.7);
+        0 0 7px
+        rgba(245,215,122,0.7);
 
     animation:
-        worldFloat 6s ease-in-out infinite;
-}
-
-
-@keyframes worldFloat {
-
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    25% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 0.2;
-        transform: translateY(-25px);
-    }
-
-    75% {
-        opacity: 0.45;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
+        starAppear 3s ease forwards,
+        starTwinkle 4s ease-in-out infinite;
 
 }
 
 
-/* TITLE */
-
-.worldTitle {
-    position: absolute;
-
-    top: 8%;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    text-align: center;
-
-    z-index: 10;
-
-    pointer-events: none;
-}
-
-
-.worldTitle p {
-    margin: 0 0 12px;
-
-    color: var(--gold);
-
-    font-size: 10px;
-    letter-spacing: 0.45em;
-
-    opacity: 0.8;
-}
-
-
-.worldTitle h1 {
-    margin: 0;
-
-    color: var(--white);
-
-    font-family: "Bodoni Moda", serif;
-
-    font-size: clamp(30px, 4vw, 58px);
-
-    font-weight: 400;
-
-    letter-spacing: 0.02em;
-}
-
-
-.worldTitle span {
-    display: block;
-
-    margin-top: 12px;
-
-    color: rgba(255, 248, 231, 0.45);
-
-    font-size: 12px;
-
-    letter-spacing: 0.08em;
-}
-
-
-/* WORLD OBJECTS */
-
-.worldObject {
-    position: absolute;
-
-    cursor: pointer;
-
-    z-index: 5;
-
-    transition:
-        transform 0.5s ease,
-        filter 0.5s ease;
-}
-
-
-.worldObject:hover {
-    transform: translateY(-8px) scale(1.04);
-
-    filter:
-        drop-shadow(
-            0 15px 30px rgba(0,0,0,0.5)
-        );
-}
-
-
-.objectLabel {
-    position: absolute;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    text-align: center;
-
-    white-space: nowrap;
-
-    pointer-events: none;
-}
-
-
-.objectLabel span {
-    display: block;
-
-    margin-bottom: 5px;
-
-    color: var(--gold);
-
-    font-size: 9px;
-
-    letter-spacing: 0.25em;
-}
-
-
-.objectLabel p {
-    margin: 0;
-
-    color: rgba(255,248,231,0.65);
-
-    font-size: 9px;
-
-    letter-spacing: 0.22em;
-}
-
-
-/* BOOK */
-
-.bookObject {
-
-    left: 14%;
-    bottom: 18%;
-
-}
-
-
-.book {
-    position: relative;
-
-    width: 120px;
-    height: 145px;
-
-    perspective: 500px;
-}
-
-
-.bookCover {
-
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 4px 10px 10px 4px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #65060D,
-            #8c0b15
-        );
-
-    border: 1px solid rgba(212,175,55,0.6);
-
-    box-shadow:
-        10px 12px 25px rgba(0,0,0,0.5),
-        inset 0 0 20px rgba(0,0,0,0.3);
-}
-
-
-.bookCover span {
-
-    color: var(--gold-bright);
-
-    font-family: "Bodoni Moda", serif;
-
-    font-size: 17px;
-
-    letter-spacing: 0.08em;
-}
-
-
-.bookCover small {
-
-    margin-top: 8px;
-
-    color: rgba(245,215,122,0.55);
-
-    font-size: 8px;
-
-    letter-spacing: 0.3em;
-}
-
-
-.bookObject .objectLabel {
-    top: 155px;
-}
-
-
-/* LETTER */
-
-.letterObject {
-
-    right: 17%;
-    bottom: 17%;
-}
-
-
-.letterEnvelope {
-
-    position: relative;
-
-    width: 135px;
-    height: 90px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fff8e7,
-            #d9c9a3
-        );
-
-    border-radius: 3px;
-
-    box-shadow:
-        0 15px 30px rgba(0,0,0,0.45);
-}
-
-
-.envelopeFlap {
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 0;
-    height: 0;
-
-    border-left: 67px solid transparent;
-    border-right: 67px solid transparent;
-    border-top: 50px solid #e8d9b9;
-
-    z-index: 2;
-}
-
-
-.letterSeal {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -20%);
-
-    width: 28px;
-    height: 28px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: var(--crimson);
-
-    color: var(--gold-bright);
-
-    font-size: 12px;
-
-    z-index: 3;
-
-    box-shadow:
-        0 0 15px rgba(181,18,27,0.4);
-}
-
-
-.letterObject .objectLabel {
-    top: 105px;
-}
-
-
-/* CANDLE */
-
-.candleObject {
-
-    left: 43%;
-    bottom: 12%;
-}
-
-
-.candle {
-
-    position: relative;
-
-    width: 38px;
-    height: 105px;
-
-    margin: auto;
-
-    border-radius: 5px 5px 3px 3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #b9a67b,
-            #fff1c9,
-            #b9a67b
-        );
-
-    box-shadow:
-        0 15px 25px rgba(0,0,0,0.5);
-}
-
-
-.flame {
-
-    position: absolute;
-
-    width: 20px;
-    height: 30px;
-
-    left: 50%;
-    top: -28px;
-
-    transform:
-        translateX(-50%)
-        rotate(45deg);
-
-    border-radius:
-        50% 0 50% 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-bright),
-            var(--crimson-bright)
-        );
-
-    box-shadow:
-        0 0 25px rgba(245,215,122,0.6);
-
-    animation:
-        flameFlicker 1.4s ease-in-out infinite alternate;
-}
-
-
-@keyframes flameFlicker {
+@keyframes starAppear {
 
     from {
-        transform:
-            translateX(-50%)
-            rotate(42deg)
-            scale(0.9);
+        opacity: 0;
     }
 
     to {
-        transform:
-            translateX(-50%)
-            rotate(48deg)
-            scale(1.1);
+        opacity: 0.55;
     }
 
 }
 
 
-.candleObject .objectLabel {
-    top: 120px;
-}
-
-
-/* MYSTERY BOX */
-
-.boxObject {
-
-    left: 67%;
-    bottom: 15%;
-}
-
-
-.mysteryBox {
-
-    position: relative;
-
-    width: 115px;
-    height: 80px;
-
-    border-radius: 5px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #4b0a10,
-            #17060a
-        );
-
-    border:
-        1px solid rgba(212,175,55,0.45);
-
-    box-shadow:
-        0 18px 35px rgba(0,0,0,0.55);
-}
-
-
-.boxLid {
-
-    position: absolute;
-
-    top: -10px;
-    left: -5px;
-
-    width: 125px;
-    height: 25px;
-
-    border-radius: 4px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #65060D,
-            #a30f1b,
-            #65060D
-        );
-
-    border:
-        1px solid rgba(212,175,55,0.45);
-}
-
-
-.boxLock {
-
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -40%);
-
-    color: var(--gold);
-
-    font-size: 22px;
-
-    text-shadow:
-        0 0 12px rgba(212,175,55,0.6);
-}
-
-
-.boxObject .objectLabel {
-    top: 95px;
-}
-
-
-/* WINDOW */
-
-.windowObject {
-
-    left: 50%;
-    top: 47%;
-
-    transform:
-        translate(-50%, -50%);
-}
-
-
-.windowObject:hover {
-
-    transform:
-        translate(-50%, -58%)
-        scale(1.04);
-}
-
-
-.windowFrame {
-
-    position: relative;
-
-    width: 210px;
-    height: 280px;
-
-    padding: 12px;
-
-    border:
-        2px solid rgba(212,175,55,0.65);
-
-    background:
-        rgba(2,5,11,0.8);
-
-    box-shadow:
-        0 0 50px rgba(212,175,55,0.08),
-        inset 0 0 30px rgba(181,18,27,0.15);
-}
-
-
-.windowSky {
-
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 65% 28%,
-            rgba(245,215,122,0.16),
-            transparent 8%
-        ),
-        linear-gradient(
-            180deg,
-            #02050B,
-            #071426 70%,
-            #14060A
-        );
-}
-
-
-.windowMoon {
-
-    position: absolute;
-
-    width: 60px;
-    height: 60px;
-
-    top: 38px;
-    right: 38px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 35%,
-            #fff8e7,
-            #d4af37
-        );
-
-    box-shadow:
-        0 0 35px rgba(245,215,122,0.3);
-}
-
-
-.windowStar {
-
-    position: absolute;
-
-    width: 3px;
-    height: 3px;
-
-    border-radius: 50%;
-
-    background: var(--gold-bright);
-
-    box-shadow:
-        0 0 8px rgba(245,215,122,0.7);
-}
-
-
-.starA {
-    top: 30%;
-    left: 25%;
-}
-
-.starB {
-    top: 48%;
-    left: 70%;
-}
-
-.starC {
-    top: 65%;
-    left: 38%;
-}
-
-
-.windowObject .objectLabel {
-    top: 295px;
-}
-
-
-/* MESSAGE OVERLAY */
-
-#objectMessage {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 200;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 30px;
-
-    background:
-        rgba(2,5,11,0.82);
-
-    backdrop-filter: blur(12px);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.5s ease;
-}
-
-
-#objectMessage.show {
-
-    opacity: 1;
-
-    pointer-events: auto;
-}
-
-
-.messageInner {
-
-    width: min(600px, 90vw);
-
-    padding: 55px 45px;
-
-    text-align: center;
-
-    border:
-        1px solid rgba(212,175,55,0.35);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(7,20,38,0.95),
-            rgba(2,5,11,0.97)
-        );
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,0.6);
-}
-
-
-.messageNumber {
-
-    color: var(--gold);
-
-    font-size: 10px;
-
-    letter-spacing: 0.35em;
-}
-
-
-.messageInner h2 {
-
-    margin:
-        15px
-        0
-        20px;
-
-    color: var(--white);
-
-    font-family: "Bodoni Moda", serif;
-
-    font-size: 38px;
-
-    font-weight: 400;
-}
-
-
-.messageInner p {
-
-    margin: 0 auto 35px;
-
-    max-width: 450px;
-
-    color: rgba(255,248,231,0.65);
-
-    font-size: 14px;
-
-    line-height: 1.8;
-}
-
-
-#closeObject {
-
-    padding:
-        12px
-        25px;
-
-    border:
-        1px solid rgba(212,175,55,0.5);
-
-    background: transparent;
-
-    color: var(--gold-bright);
-
-    font-size: 10px;
-
-    letter-spacing: 0.25em;
-
-    cursor: pointer;
-
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
-}
-
-
-#closeObject:hover {
-
-    background: var(--gold);
-
-    color: #02050B;
-}
-
-
-/* BOTTOM HINT */
-
-.worldHint {
-
-    position: absolute;
-
-    bottom: 5%;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    color:
-        rgba(255,248,231,0.35);
-
-    font-size: 10px;
-
-    letter-spacing: 0.2em;
-
-    animation:
-        hintPulse 2.5s ease-in-out infinite;
-}
-
-
-.worldHint span {
-
-    color: var(--gold);
-
-    margin-right: 8px;
-}
-
-
-@keyframes hintPulse {
+@keyframes starTwinkle {
 
     0%, 100% {
-        opacity: 0.35;
+        opacity: 0.25;
     }
 
     50% {
@@ -2258,139 +1569,895 @@ body {
 }
 
 
+/* MOON */
+
+.worldMoon {
+
+    position: absolute;
+
+    z-index: 3;
+
+    top: 14%;
+
+    left: 50%;
+
+    width: clamp(55px, 7vw, 90px);
+
+    height: clamp(55px, 7vw, 90px);
+
+    transform:
+        translateX(-50%)
+        translate(
+            calc(var(--mouse-x) * 15px),
+            calc(var(--mouse-y) * 10px)
+        );
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 35% 30%,
+            #FFF8E7,
+            #F5D77A 48%,
+            #D4AF37 100%
+        );
+
+    box-shadow:
+
+        0 0 35px
+        rgba(245,215,122,0.18),
+
+        0 0 90px
+        rgba(245,215,122,0.08);
+
+    opacity: 0;
+
+    transition:
+        opacity 3s ease,
+        transform 2s ease;
+
+}
+
+
+.worldAwake .worldMoon {
+    opacity: 0.9;
+}
+
+
+/* HORIZON */
+
+.worldHorizon {
+
+    position: absolute;
+
+    z-index: 4;
+
+    left: -10%;
+
+    bottom: 24%;
+
+    width: 120%;
+
+    height: 2px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(212,175,55,0.2),
+            rgba(212,175,55,0.55),
+            rgba(212,175,55,0.2),
+            transparent
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(212,175,55,0.18);
+
+    opacity: 0;
+
+    transition:
+        opacity 3s ease 1s;
+
+}
+
+
+.worldAwake .worldHorizon {
+    opacity: 1;
+}
+
+
+/* DISTANT LIGHT */
+
+.distantLight {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    bottom: 25%;
+
+    width: 8px;
+
+    height: 8px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        var(--gold-white);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(245,215,122,0.9),
+
+        0 0 50px
+        rgba(212,175,55,0.5),
+
+        0 0 120px
+        rgba(181,18,27,0.25);
+
+    opacity: 0;
+
+    transition:
+        opacity 3s ease 1.5s;
+
+}
+
+
+.worldAwake .distantLight {
+    opacity: 1;
+}
+
+
+/* GROUND */
+
+.worldGround {
+
+    position: absolute;
+
+    z-index: 6;
+
+    left: 50%;
+
+    bottom: -25%;
+
+    width: 130%;
+
+    height: 55%;
+
+    transform:
+        translateX(-50%)
+        perspective(700px)
+        rotateX(60deg);
+
+    transform-origin:
+        center top;
+
+    background:
+
+        radial-gradient(
+            ellipse at center top,
+            rgba(212,175,55,0.12),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(7,20,38,0.1),
+            #02050B 75%
+        );
+
+    border-top:
+        1px solid
+        rgba(212,175,55,0.12);
+
+}
+
+
+/* PATH */
+
+.path {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 0;
+
+    width: 5%;
+
+    min-width: 22px;
+
+    height: 100%;
+
+    transform:
+        translateX(-50%);
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(212,175,55,0.18),
+            rgba(181,18,27,0.08),
+            transparent 75%
+        );
+
+    filter:
+        blur(1px);
+
+}
+
+
+/* PATH GLOW */
+
+.pathGlow {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: -10%;
+
+    width: 35%;
+
+    height: 80%;
+
+    transform:
+        translateX(-50%);
+
+    background:
+
+        radial-gradient(
+            ellipse,
+            rgba(212,175,55,0.12),
+            transparent 65%
+        );
+
+    filter:
+        blur(20px);
+
+}
+
+
+/* MEMORY FRAGMENT */
+
+.memoryFragment {
+
+    position: absolute;
+
+    z-index: 20;
+
+    left: 50%;
+
+    top: 56%;
+
+    width: 90px;
+
+    height: 90px;
+
+    transform:
+        translate(-50%, -50%);
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        transform 0.7s ease,
+        opacity 2s ease;
+
+}
+
+
+.worldAwake .memoryFragment {
+
+    opacity: 1;
+
+    animation:
+        fragmentFloat 4s ease-in-out infinite;
+
+}
+
+
+@keyframes fragmentFloat {
+
+    0%, 100% {
+        transform:
+            translate(-50%, -50%)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            translateY(-12px);
+    }
+
+}
+
+
+/* CORE */
+
+.fragmentCore {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 17px;
+
+    height: 17px;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #FFF8E7,
+            #F5D77A 50%,
+            #D4AF37
+        );
+
+    box-shadow:
+
+        0 0 15px
+        rgba(245,215,122,0.9),
+
+        0 0 45px
+        rgba(212,175,55,0.55),
+
+        0 0 90px
+        rgba(181,18,27,0.25);
+
+    transition:
+        transform 0.7s ease;
+
+}
+
+
+/* RING */
+
+.fragmentRing {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 55px;
+
+    height: 55px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border:
+        1px solid
+        rgba(245,215,122,0.5);
+
+    border-radius: 50%;
+
+    animation:
+        ringPulse 2.5s ease-in-out infinite;
+
+}
+
+
+@keyframes ringPulse {
+
+    0%, 100% {
+        transform:
+            translate(-50%, -50%)
+            scale(0.85);
+
+        opacity: 0.35;
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.15);
+
+        opacity: 0.8;
+    }
+
+}
+
+
+/* DUST */
+
+.fragmentDust {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 100px;
+
+    height: 100px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(245,215,122,0.12),
+            transparent 65%
+        );
+
+    filter:
+        blur(5px);
+
+}
+
+
+/* HOVER */
+
+.memoryFragment:hover {
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.12);
+
+}
+
+
+.memoryFragment:hover .fragmentCore {
+
+    transform:
+        translate(-50%, -50%)
+        rotate(135deg)
+        scale(1.2);
+
+}
+
+
+/* DISCOVERED */
+
+.memoryFragment.discovered {
+
+    animation:
+        fragmentDisappear 1s ease forwards;
+
+}
+
+
+@keyframes fragmentDisappear {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    40% {
+        transform:
+            translate(-50%, -50%)
+            scale(2.5);
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(0);
+    }
+
+}
+
+
+/* INSTRUCTION */
+
+.sceneInstruction {
+
+    position: absolute;
+
+    z-index: 30;
+
+    left: 50%;
+
+    bottom: 7%;
+
+    transform:
+        translateX(-50%);
+
+    text-align: center;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition:
+        opacity 2s ease 2s;
+
+}
+
+
+.worldAwake .sceneInstruction {
+    opacity: 1;
+}
+
+
+.sceneInstruction span {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color:
+        var(--gold);
+
+    font-size: 12px;
+
+    animation:
+        hintPulse 2s ease-in-out infinite;
+
+}
+
+
+.sceneInstruction p {
+
+    margin: 0;
+
+    color:
+        rgba(255,248,231,0.4);
+
+    font-family:
+        "Inter", sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 0.2em;
+
+}
+
+
+/* COUNTER */
+
+.discoveryCounter {
+
+    position: absolute;
+
+    z-index: 40;
+
+    top: 6%;
+
+    right: 5%;
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 5px;
+
+    opacity: 0;
+
+    transition:
+        opacity 2s ease 2s;
+
+}
+
+
+.worldAwake .discoveryCounter {
+    opacity: 1;
+}
+
+
+.discoveryCounter span {
+
+    color:
+        var(--gold-bright);
+
+    font-family:
+        "Bodoni Moda", serif;
+
+    font-size: 20px;
+
+}
+
+
+.discoveryCounter small {
+
+    color:
+        rgba(255,248,231,0.35);
+
+    font-size: 9px;
+
+    letter-spacing: 0.1em;
+
+}
+
+
+/* DISCOVERY REVEAL */
+
+.discoveryReveal {
+
+    position: absolute;
+
+    z-index: 100;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(2,5,11,0.78);
+
+    backdrop-filter:
+        blur(10px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 1.2s ease;
+
+}
+
+
+.discoveryReveal.show {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+}
+
+
+.revealLight {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 400px;
+
+    height: 400px;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(212,175,55,0.12),
+            transparent 65%
+        );
+
+    filter:
+        blur(30px);
+
+}
+
+
+.revealContent {
+
+    position: relative;
+
+    text-align: center;
+
+    max-width: 500px;
+
+    padding: 40px;
+
+}
+
+
+.revealNumber {
+
+    color:
+        var(--gold);
+
+    font-size: 9px;
+
+    letter-spacing: 0.45em;
+
+}
+
+
+.revealLine {
+
+    width: 40px;
+
+    height: 1px;
+
+    margin: 20px auto;
+
+    background:
+        var(--gold);
+
+}
+
+
+.revealContent h2 {
+
+    margin: 0;
+
+    color:
+        var(--white);
+
+    font-family:
+        "Bodoni Moda", serif;
+
+    font-size:
+        clamp(34px, 5vw, 60px);
+
+    font-weight: 400;
+
+}
+
+
+.revealContent p {
+
+    margin:
+        15px 0 30px;
+
+    color:
+        rgba(255,248,231,0.5);
+
+    font-size: 13px;
+
+}
+
+
+#continueDiscovery {
+
+    padding:
+        13px 28px;
+
+    border:
+        1px solid
+        rgba(212,175,55,0.5);
+
+    background:
+        transparent;
+
+    color:
+        var(--gold-bright);
+
+    font-size: 9px;
+
+    letter-spacing: 0.3em;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
+
+}
+
+
+#continueDiscovery:hover {
+
+    background:
+        var(--gold);
+
+    color:
+        #02050B;
+
+}
+
+
+/* FIRST DISCOVERY WORLD RESPONSE */
+
+#sceneOne.firstDiscovery .worldStars {
+
+    animation:
+        starsSurge 2s ease;
+
+}
+
+
+#sceneOne.firstDiscovery .worldMoon {
+
+    box-shadow:
+
+        0 0 50px
+        rgba(245,215,122,0.35),
+
+        0 0 130px
+        rgba(245,215,122,0.18);
+
+}
+
+
+#sceneOne.firstDiscovery .distantLight {
+
+    transform:
+        translateX(-50%)
+        scale(2);
+
+    transition:
+        transform 1s ease;
+
+}
+
+
+@keyframes starsSurge {
+
+    0% {
+        transform:
+            scale(1);
+    }
+
+    50% {
+        transform:
+            scale(1.05);
+    }
+
+    100% {
+        transform:
+            scale(1);
+    }
+
+}
+
+
 /* MOBILE */
 
 @media (max-width: 700px) {
 
-    .worldTitle {
-        top: 7%;
-    }
-
-    .worldTitle h1 {
-        font-size: 32px;
-    }
-
-    .worldTitle span {
-        font-size: 10px;
+    .worldMoon {
+        top: 12%;
     }
 
 
-    .windowFrame {
-        width: 145px;
-        height: 200px;
+    .memoryFragment {
+        top: 57%;
     }
 
 
-    .windowObject {
-        top: 43%;
+    .sceneInstruction {
+        bottom: 8%;
     }
 
 
-    .windowMoon {
-        width: 42px;
-        height: 42px;
-
-        top: 25px;
-        right: 25px;
+    .sceneInstruction p {
+        font-size: 8px;
     }
 
 
-    .bookObject {
-        left: 7%;
-        bottom: 20%;
+    .discoveryCounter {
+        top: 4%;
+        right: 6%;
     }
 
 
-    .book {
-        width: 80px;
-        height: 100px;
+    .revealContent {
+        padding: 30px;
     }
 
 
-    .bookObject .objectLabel {
-        top: 110px;
-    }
-
-
-    .letterObject {
-        right: 7%;
-        bottom: 20%;
-    }
-
-
-    .letterEnvelope {
-        width: 90px;
-        height: 60px;
-    }
-
-
-    .envelopeFlap {
-        border-left-width: 45px;
-        border-right-width: 45px;
-        border-top-width: 34px;
-    }
-
-
-    .letterSeal {
-        width: 20px;
-        height: 20px;
-
-        font-size: 9px;
-    }
-
-
-    .letterObject .objectLabel {
-        top: 75px;
-    }
-
-
-    .candleObject {
-        left: 32%;
-        bottom: 9%;
-    }
-
-
-    .candle {
-        width: 27px;
-        height: 75px;
-    }
-
-
-    .candleObject .objectLabel {
-        top: 90px;
-    }
-
-
-    .boxObject {
-        left: auto;
-        right: 28%;
-        bottom: 9%;
-    }
-
-
-    .mysteryBox {
-        width: 75px;
-        height: 55px;
-    }
-
-
-    .boxLid {
-        width: 85px;
-    }
-
-
-    .boxObject .objectLabel {
-        top: 70px;
-    }
-
-
-    .messageInner {
-        padding: 40px 25px;
-    }
-
-
-    .messageInner h2 {
-        font-size: 30px;
+    .revealContent h2 {
+        font-size: 38px;
     }
 
 }
