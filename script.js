@@ -476,27 +476,45 @@ function discoverForestMemory() {
     const discovery =
         document.getElementById("forestDiscovery");
 
-
     if (
         discovery.classList.contains("discovered")
     ) {
-
         return;
-
     }
 
-
     discovery.classList.add("discovered");
-
 
     document
         .querySelector(".forestCounter span")
         .textContent = "01";
 
-
     document
         .getElementById("sceneOne")
         .classList.add("memoryFound");
+
+
+    /* WAKE THE TREE */
+
+    const tree =
+        document.getElementById("memoryTree");
+
+    if (tree) {
+
+        tree.classList.add("treeAwakened");
+
+    }
+
+
+    /* FOREST REACTION */
+
+    const forest =
+        document.querySelector(".forestWorld");
+
+    if (forest) {
+
+        forest.classList.add("forestReaction");
+
+    }
 
 
     setTimeout(() => {
@@ -505,10 +523,9 @@ function discoverForestMemory() {
             .getElementById("forestReveal")
             .classList.add("show");
 
-    }, 1200);
+    }, 1500);
 
 }
-
 function setupWorldObject(id, number, title, text, extra) {
 
     const object = document.getElementById(id);
