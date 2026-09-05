@@ -1,3 +1,4 @@
+```js
 const starsContainer = document.getElementById("stars");
 const beginButton = document.getElementById("beginButton");
 
@@ -33,6 +34,9 @@ let experienceStarted = false;
 beginButton.addEventListener("click", startExperience);
 
 function startExperience() {
+
+    console.log("BEGIN WAS CLICKED");
+
     if (experienceStarted) return;
 
     experienceStarted = true;
@@ -175,9 +179,8 @@ function createSceneOne() {
                 .getElementById("sceneOneStart")
                 .textContent = "COMING SOON";
 
-console.log("SCRIPT IS WORKING");
-
-beginButton.addEventListener("click", () => {
-    console.log("BEGIN WAS CLICKED");
         });
 }
+
+console.log("SCRIPT IS WORKING");
+```
