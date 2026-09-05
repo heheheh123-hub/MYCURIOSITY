@@ -245,9 +245,9 @@ function createSceneOne() {
 
         <div class="reflectionMoon"></div>
 
-<div class="reflectionSymbol symbolA">✦</div>
-<div class="reflectionSymbol symbolB">◆</div>
-<div class="reflectionSymbol symbolC">●</div>
+<div class="reflectionSymbol symbolA" data-symbol="moon">✦</div>
+<div class="reflectionSymbol symbolB" data-symbol="star">◆</div>
+<div class="reflectionSymbol symbolC" data-symbol="heart">●</div>
 
     </div>
 
