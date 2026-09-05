@@ -304,10 +304,57 @@ function createSceneOne() {
 
     <div class="forestRevealLine"></div>
 
-    <!-- DISCOVERY 02 -->
+<!-- DISCOVERY 02 -->
 <div class="memoryReveal" id="memoryReveal">
 
-    <div class="memoryRevealGlow"></div>
+    <div class="memoryRevealContent">
+
+        <span>DISCOVERY 02 / 25</span>
+
+        <div class="memoryRevealLine"></div>
+
+        <div class="memoryPhotoPlaceholder">
+            AYAT
+        </div>
+
+        <h2>The first memory.</h2>
+
+        <p>
+            Some moments deserve to be remembered forever.
+        </p>
+
+        <button id="memoryContinue">
+            CONTINUE
+<!-- DISCOVERY OVERLAY -->
+<div class="forestReveal" id="forestReveal">
+
+    <div class="revealGlow"></div>
+
+    <div class="forestRevealContent">
+
+        <span>DISCOVERY 01 / 25</span>
+
+        <div class="forestRevealLine"></div>
+
+        <h2>
+            The beginning.
+        </h2>
+
+        <p>
+            Every story has a first moment.
+        </p>
+
+        <button id="forestContinue">
+            CONTINUE
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- DISCOVERY 02 -->
+<div class="memoryReveal" id="memoryReveal">
 
     <div class="memoryRevealContent">
 
@@ -334,24 +381,6 @@ function createSceneOne() {
     </div>
 
 </div>
-
-    <h2>
-        The beginning.
-    </h2>
-
-    <p>
-        Every story has a first moment.
-    </p>
-
-    <button id="forestContinue">
-        CONTINUE
-    </button>
-
-</div>
-
-            </div>
-
-        </div>
 
     `;
 
