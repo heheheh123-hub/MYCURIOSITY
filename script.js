@@ -558,18 +558,20 @@ function discoverForestMemory() {
 
     /* SHOW DISCOVERY OVERLAY */
 
-setTimeout(() => {
+    setTimeout(() => {
 
-    setupPondSymbols();
+        setupPondSymbols();
 
-    const reveal =
-        document.getElementById("forestReveal");
+        const reveal =
+            document.getElementById("forestReveal");
 
-    if (reveal) {
-        reveal.classList.add("show");
-    }
+        if (reveal) {
+            reveal.classList.add("show");
+        }
 
-}, 2200);
+    }, 2200);
+
+}
 
 function createMemoryParticles() {
 
@@ -725,10 +727,5 @@ function setupPondSymbols() {
             }, 1200);
 
         });
-
-    });
-
-}
-    });
-
+        
 }
