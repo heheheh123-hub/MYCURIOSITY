@@ -495,43 +495,77 @@ function discoverForestMemory() {
     const discovery =
         document.getElementById("forestDiscovery");
 
+    if (!discovery) return;
+
     if (discovery.classList.contains("discovered")) {
         return;
     }
 
     discovery.classList.add("discovered");
 
-    document
-        .querySelector(".forestCounter span")
-        .textContent = "01";
+
+    /* UPDATE COUNTER */
+
+    const counter =
+        document.querySelector(".forestCounter span");
+
+    if (counter) {
+        counter.textContent = "01";
+    }
+
+
+    /* GET THE FOREST */
+
+    const forest =
+        document.querySelector(".forestWorld");
+
+
+    /* GET THE TREE */
 
     const tree =
         document.getElementById("memoryTree");
 
-setTimeout(() => {
 
-    if (forest) {
-        forest.classList.add("pondRevealed");
+    /* WAKE THE TREE */
+
+    if (tree) {
+        tree.classList.add("treeAwakened");
     }
 
-}, 900);
+
+    /* WAKE THE FOREST */
 
     if (forest) {
         forest.classList.add("forestReaction");
     }
 
-    /* CREATE THE BURST */
+
+    /* REVEAL THE POND */
+
+    setTimeout(() => {
+
+        if (forest) {
+            forest.classList.add("pondRevealed");
+        }
+
+    }, 900);
+
+
+    /* CREATE THE PARTICLE BURST */
 
     createMemoryParticles();
 
 
-    /* SHOW DISCOVERY AFTER THE REACTION */
+    /* SHOW DISCOVERY OVERLAY */
 
     setTimeout(() => {
 
-        document
-            .getElementById("forestReveal")
-            .classList.add("show");
+        const reveal =
+            document.getElementById("forestReveal");
+
+        if (reveal) {
+            reveal.classList.add("show");
+        }
 
     }, 2200);
 
