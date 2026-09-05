@@ -1370,13 +1370,12 @@ body {
 }
 
 /* =========================================================
-   SCENE ONE — THE WORLD
+   SCENE ONE — THE CRIMSON FOREST
    ========================================================= */
 
 #sceneOne {
 
     position: fixed;
-
     inset: 0;
 
     z-index: 100;
@@ -1398,61 +1397,58 @@ body {
 }
 
 
-/* WORLD */
-
-.world {
+.forestWorld {
 
     position: relative;
 
     width: 100%;
-
     height: 100%;
 
     overflow: hidden;
 
-    --mouse-x: 0;
-
-    --mouse-y: 0;
+    --forest-x: 0;
+    --forest-y: 0;
 
 }
 
 
-/* SKY */
+/* =========================================================
+   SKY
+   ========================================================= */
 
-.worldSky {
+.forestSky {
 
     position: absolute;
-
-    inset: 0;
+    inset: -5%;
 
     background:
 
         radial-gradient(
-            ellipse at 50% 72%,
-            rgba(181, 18, 27, 0.24),
-            transparent 35%
+            ellipse at 50% 38%,
+            rgba(18, 38, 70, 0.7),
+            transparent 45%
         ),
 
         radial-gradient(
-            ellipse at 50% 100%,
-            rgba(212, 175, 55, 0.10),
-            transparent 45%
+            ellipse at 50% 75%,
+            rgba(181, 18, 27, 0.2),
+            transparent 38%
         ),
 
         linear-gradient(
             180deg,
             #01030A 0%,
-            #030916 42%,
+            #030917 45%,
             #071426 72%,
-            #16070B 100%
+            #16060A 100%
         );
 
     transform:
-        scale(1.08)
         translate(
-            calc(var(--mouse-x) * -8px),
-            calc(var(--mouse-y) * -5px)
-        );
+            calc(var(--forest-x) * -10px),
+            calc(var(--forest-y) * -7px)
+        )
+        scale(1.05);
 
     transition:
         transform 2s ease;
@@ -1460,136 +1456,27 @@ body {
 }
 
 
-/* HAZE */
+/* =========================================================
+   MOON
+   ========================================================= */
 
-.worldHaze {
-
-    position: absolute;
-
-    left: -10%;
-
-    bottom: 12%;
-
-    width: 120%;
-
-    height: 45%;
-
-    background:
-
-        radial-gradient(
-            ellipse,
-            rgba(181,18,27,0.18),
-            transparent 65%
-        );
-
-    filter: blur(45px);
-
-    opacity: 0;
-
-    transition:
-        opacity 4s ease;
-
-}
-
-
-.worldAwake .worldHaze {
-    opacity: 1;
-}
-
-
-/* STARS */
-
-.worldStars {
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 2;
-
-    transform:
-        translate(
-            calc(var(--mouse-x) * -12px),
-            calc(var(--mouse-y) * -8px)
-        );
-
-    transition:
-        transform 2s ease;
-
-}
-
-
-.worldStar {
-
-    position: absolute;
-
-    display: block;
-
-    border-radius: 50%;
-
-    background:
-        var(--gold-white);
-
-    opacity: 0;
-
-    box-shadow:
-        0 0 7px
-        rgba(245,215,122,0.7);
-
-    animation:
-        starAppear 3s ease forwards,
-        starTwinkle 4s ease-in-out infinite;
-
-}
-
-
-@keyframes starAppear {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 0.55;
-    }
-
-}
-
-
-@keyframes starTwinkle {
-
-    0%, 100% {
-        opacity: 0.25;
-    }
-
-    50% {
-        opacity: 0.8;
-    }
-
-}
-
-
-/* MOON */
-
-.worldMoon {
+.forestMoon {
 
     position: absolute;
 
     z-index: 3;
 
-    top: 14%;
-
+    top: 12%;
     left: 50%;
 
-    width: clamp(55px, 7vw, 90px);
-
-    height: clamp(55px, 7vw, 90px);
+    width: clamp(70px, 8vw, 115px);
+    aspect-ratio: 1;
 
     transform:
         translateX(-50%)
         translate(
-            calc(var(--mouse-x) * 15px),
-            calc(var(--mouse-y) * 10px)
+            calc(var(--forest-x) * 18px),
+            calc(var(--forest-y) * 12px)
         );
 
     border-radius: 50%;
@@ -1599,144 +1486,482 @@ body {
         radial-gradient(
             circle at 35% 30%,
             #FFF8E7,
-            #F5D77A 48%,
-            #D4AF37 100%
+            #F5D77A 55%,
+            #D4AF37
         );
 
     box-shadow:
 
         0 0 35px
-        rgba(245,215,122,0.18),
+        rgba(245,215,122,0.25),
 
-        0 0 90px
-        rgba(245,215,122,0.08);
+        0 0 100px
+        rgba(245,215,122,0.12);
 
     opacity: 0;
 
     transition:
-        opacity 3s ease,
+        opacity 3s ease 0.8s,
         transform 2s ease;
 
 }
 
 
-.worldAwake .worldMoon {
-    opacity: 0.9;
+.forestAwake .forestMoon {
+    opacity: 0.85;
 }
 
 
-/* HORIZON */
-
-.worldHorizon {
+.moonGlow {
 
     position: absolute;
 
-    z-index: 4;
-
-    left: -10%;
-
-    bottom: 24%;
-
-    width: 120%;
-
-    height: 2px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(212,175,55,0.2),
-            rgba(212,175,55,0.55),
-            rgba(212,175,55,0.2),
-            transparent
-        );
-
-    box-shadow:
-        0 0 30px
-        rgba(212,175,55,0.18);
-
-    opacity: 0;
-
-    transition:
-        opacity 3s ease 1s;
-
-}
-
-
-.worldAwake .worldHorizon {
-    opacity: 1;
-}
-
-
-/* DISTANT LIGHT */
-
-.distantLight {
-
-    position: absolute;
-
-    z-index: 5;
-
-    left: 50%;
-
-    bottom: 25%;
-
-    width: 8px;
-
-    height: 8px;
-
-    transform:
-        translateX(-50%);
+    inset: -80%;
 
     border-radius: 50%;
 
     background:
-        var(--gold-white);
 
-    box-shadow:
+        radial-gradient(
+            circle,
+            rgba(245,215,122,0.08),
+            transparent 65%
+        );
 
-        0 0 15px
-        rgba(245,215,122,0.9),
+    filter: blur(20px);
 
-        0 0 50px
-        rgba(212,175,55,0.5),
+}
 
-        0 0 120px
-        rgba(181,18,27,0.25);
 
-    opacity: 0;
+/* =========================================================
+   STARS
+   ========================================================= */
+
+.forestStars {
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 2;
+
+    transform:
+        translate(
+            calc(var(--forest-x) * -14px),
+            calc(var(--forest-y) * -10px)
+        );
 
     transition:
-        opacity 3s ease 1.5s;
+        transform 2s ease;
 
 }
 
 
-.worldAwake .distantLight {
-    opacity: 1;
-}
-
-
-/* GROUND */
-
-.worldGround {
+.forestStar {
 
     position: absolute;
 
-    z-index: 6;
+    display: block;
 
-    left: 50%;
+    border-radius: 50%;
 
-    bottom: -25%;
+    background: var(--gold-white);
 
-    width: 130%;
+    opacity: 0;
 
+    box-shadow:
+        0 0 7px
+        rgba(245,215,122,0.65);
+
+    animation:
+        forestStarAppear 3s ease forwards,
+        forestStarTwinkle 4s ease-in-out infinite;
+
+}
+
+
+@keyframes forestStarAppear {
+
+    to {
+        opacity: 0.5;
+    }
+
+}
+
+
+@keyframes forestStarTwinkle {
+
+    0%, 100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+}
+
+
+/* =========================================================
+   MOUNTAINS
+   ========================================================= */
+
+.mountains {
+
+    position: absolute;
+
+    left: -5%;
+    bottom: 25%;
+
+    width: 110%;
+    height: 30%;
+
+    clip-path:
+        polygon(
+            0 100%,
+            0 65%,
+            10% 45%,
+            18% 62%,
+            28% 30%,
+            37% 58%,
+            48% 25%,
+            58% 55%,
+            70% 35%,
+            82% 60%,
+            92% 40%,
+            100% 60%,
+            100% 100%
+        );
+
+}
+
+
+.mountainBack {
+
+    z-index: 4;
+
+    background:
+        #050D1A;
+
+    opacity: 0.8;
+
+}
+
+
+.mountainFront {
+
+    z-index: 5;
+
+    bottom: 21%;
+
+    background:
+        #040914;
+
+    opacity: 0.95;
+
+    transform:
+        translateX(
+            calc(var(--forest-x) * -6px)
+        );
+
+}
+
+
+/* =========================================================
+   TREE SYSTEM
+   ========================================================= */
+
+.treeLayer {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+}
+
+
+.treeBack {
+    z-index: 7;
+}
+
+
+.treeMiddle {
+    z-index: 15;
+}
+
+
+.treeFront {
+    z-index: 35;
+}
+
+
+.tree {
+
+    position: absolute;
+
+    bottom: 18%;
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        65px solid transparent;
+
+    border-right:
+        65px solid transparent;
+
+    border-bottom:
+        190px solid #03070F;
+
+    filter:
+        drop-shadow(
+            0 10px 15px rgba(0,0,0,0.45)
+        );
+
+}
+
+
+.tree::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: -50px;
+
+    bottom: -155px;
+
+    width: 100px;
+
+    height: 130px;
+
+    clip-path:
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+        inherit;
+
+}
+
+
+.tree::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: -35px;
+
+    bottom: -185px;
+
+    width: 70px;
+
+    height: 110px;
+
+    clip-path:
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%
+        );
+
+    background:
+        inherit;
+
+}
+
+
+/* BACK POSITIONS */
+
+.treeBack .tree1 {
+    left: 2%;
+    transform: scale(1.3);
+}
+
+.treeBack .tree2 {
+    left: 15%;
+    transform: scale(0.85);
+}
+
+.treeBack .tree3 {
+    left: 27%;
+    transform: scale(1.1);
+}
+
+.treeBack .tree4 {
+    left: 39%;
+    transform: scale(0.7);
+}
+
+.treeBack .tree5 {
+    left: 59%;
+    transform: scale(0.8);
+}
+
+.treeBack .tree6 {
+    left: 72%;
+    transform: scale(1.15);
+}
+
+.treeBack .tree7 {
+    left: 84%;
+    transform: scale(0.85);
+}
+
+.treeBack .tree8 {
+    left: 94%;
+    transform: scale(1.3);
+}
+
+
+/* MIDDLE POSITIONS */
+
+.treeMiddle .tree {
+
+    border-left-width: 85px;
+    border-right-width: 85px;
+    border-bottom-width: 250px;
+
+}
+
+
+.treeMiddle .tree1 {
+    left: -5%;
+    transform: scale(1.2);
+}
+
+.treeMiddle .tree2 {
+    left: 18%;
+    transform: scale(0.8);
+}
+
+.treeMiddle .tree3 {
+    left: 31%;
+    transform: scale(1);
+}
+
+.treeMiddle .tree4 {
+    left: 65%;
+    transform: scale(0.9);
+}
+
+.treeMiddle .tree5 {
+    left: 80%;
+    transform: scale(1.2);
+}
+
+.treeMiddle .tree6 {
+    left: 101%;
+    transform: scale(1.1);
+}
+
+
+/* FRONT */
+
+.treeFront .tree {
+
+    border-left-width: 110px;
+    border-right-width: 110px;
+    border-bottom-width: 330px;
+
+}
+
+
+.treeFront .tree1 {
+    left: -12%;
+    bottom: 4%;
+    transform: scale(1.3);
+}
+
+.treeFront .tree2 {
+    left: 7%;
+    bottom: 0;
+    transform: scale(0.9);
+}
+
+.treeFront .tree3 {
+    right: 5%;
+    bottom: 1%;
+    transform: scale(1.15);
+}
+
+.treeFront .tree4 {
+    right: -13%;
+    bottom: 0;
+    transform: scale(1.35);
+}
+
+
+/* =========================================================
+   PARALLAX TREE MOVEMENT
+   ========================================================= */
+
+.treeBack {
+
+    transform:
+        translate(
+            calc(var(--forest-x) * -5px),
+            calc(var(--forest-y) * -2px)
+        );
+
+    transition:
+        transform 2s ease;
+
+}
+
+
+.treeMiddle {
+
+    transform:
+        translate(
+            calc(var(--forest-x) * -10px),
+            calc(var(--forest-y) * -4px)
+        );
+
+    transition:
+        transform 2s ease;
+
+}
+
+
+.treeFront {
+
+    transform:
+        translate(
+            calc(var(--forest-x) * -18px),
+            calc(var(--forest-y) * -7px)
+        );
+
+    transition:
+        transform 2s ease;
+
+}
+
+
+/* =========================================================
+   GROUND
+   ========================================================= */
+
+.forestGround {
+
+    position: absolute;
+
+    z-index: 20;
+
+    left: -10%;
+    bottom: -15%;
+
+    width: 120%;
     height: 55%;
 
     transform:
-        translateX(-50%)
-        perspective(700px)
-        rotateX(60deg);
+        perspective(800px)
+        rotateX(58deg);
 
     transform-origin:
         center top;
@@ -1744,37 +1969,33 @@ body {
     background:
 
         radial-gradient(
-            ellipse at center top,
-            rgba(212,175,55,0.12),
-            transparent 35%
+            ellipse at 50% 0%,
+            rgba(212,175,55,0.08),
+            transparent 30%
         ),
 
         linear-gradient(
             180deg,
-            rgba(7,20,38,0.1),
-            #02050B 75%
+            #07101D,
+            #02050B 70%
         );
-
-    border-top:
-        1px solid
-        rgba(212,175,55,0.12);
 
 }
 
 
 /* PATH */
 
-.path {
+.forestPath {
 
     position: absolute;
 
-    left: 50%;
-
     top: 0;
 
-    width: 5%;
+    left: 50%;
 
-    min-width: 22px;
+    width: 7%;
+
+    min-width: 35px;
 
     height: 100%;
 
@@ -1785,161 +2006,524 @@ body {
 
         linear-gradient(
             180deg,
-            rgba(212,175,55,0.18),
+            rgba(212,175,55,0.15),
             rgba(181,18,27,0.08),
             transparent 75%
         );
 
-    filter:
-        blur(1px);
+    clip-path:
+        polygon(
+            46% 0,
+            54% 0,
+            100% 100%,
+            0 100%
+        );
 
 }
 
 
-/* PATH GLOW */
+.pathLight {
 
-.pathGlow {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            ellipse at 50% 5%,
+            rgba(245,215,122,0.35),
+            transparent 35%
+        );
+
+    filter:
+        blur(5px);
+
+}
+
+
+.groundMist {
+
+    position: absolute;
+
+    left: 0;
+    top: -15%;
+
+    width: 100%;
+    height: 50%;
+
+    background:
+
+        radial-gradient(
+            ellipse,
+            rgba(181,18,27,0.14),
+            transparent 65%
+        );
+
+    filter:
+        blur(35px);
+
+}
+
+
+/* =========================================================
+   GLOWING TREE
+   ========================================================= */
+
+.memoryTree {
+
+    position: absolute;
+
+    z-index: 30;
+
+    left: 50%;
+
+    bottom: 28%;
+
+    width: 160px;
+    height: 270px;
+
+    transform:
+        translateX(-50%)
+        translate(
+            calc(var(--forest-x) * 10px),
+            calc(var(--forest-y) * 6px)
+        );
+
+    filter:
+        drop-shadow(
+            0 0 30px rgba(212,175,55,0.15)
+        );
+
+    transition:
+        transform 2s ease;
+
+}
+
+
+/* TRUNK */
+
+.treeTrunk {
 
     position: absolute;
 
     left: 50%;
 
-    top: -10%;
+    bottom: 0;
 
-    width: 35%;
-
-    height: 80%;
+    width: 20px;
+    height: 145px;
 
     transform:
         translateX(-50%);
 
     background:
 
-        radial-gradient(
-            ellipse,
-            rgba(212,175,55,0.12),
-            transparent 65%
+        linear-gradient(
+            90deg,
+            #16080B,
+            #4C1715,
+            #16080B
         );
 
-    filter:
-        blur(20px);
+    border-radius:
+        40% 40% 10% 10%;
 
 }
 
 
-/* MEMORY FRAGMENT */
-
-.memoryFragment {
+.treeBranch {
 
     position: absolute;
 
-    z-index: 20;
+    height: 10px;
+
+    border-radius: 100%;
+
+    background:
+        #30100F;
+
+    transform-origin:
+        left center;
+
+}
+
+
+.branch1 {
 
     left: 50%;
+    top: 38%;
 
-    top: 56%;
-
-    width: 90px;
-
-    height: 90px;
+    width: 80px;
 
     transform:
-        translate(-50%, -50%);
+        rotate(-38deg);
 
-    cursor: pointer;
+}
+
+
+.branch2 {
+
+    left: 50%;
+    top: 48%;
+
+    width: 75px;
+
+    transform:
+        rotate(35deg);
+
+}
+
+
+.branch3 {
+
+    left: 45%;
+    top: 26%;
+
+    width: 60px;
+
+    transform:
+        rotate(-18deg);
+
+}
+
+
+/* CROWNS */
+
+.treeCrown {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+            circle at 40% 35%,
+            rgba(245,215,122,0.3),
+            rgba(181,18,27,0.32) 35%,
+            rgba(15,6,12,0.95) 72%
+        );
+
+    box-shadow:
+        0 0 30px rgba(181,18,27,0.15);
+
+}
+
+
+.crown1 {
+
+    width: 125px;
+    height: 125px;
+
+    left: 18px;
+    top: 18px;
+
+}
+
+
+.crown2 {
+
+    width: 100px;
+    height: 100px;
+
+    left: -5px;
+    top: 75px;
+
+}
+
+
+.crown3 {
+
+    width: 105px;
+    height: 105px;
+
+    right: -3px;
+    top: 70px;
+
+}
+
+
+/* TREE LIGHTS */
+
+.treeLight {
+
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+        var(--gold-white);
+
+    box-shadow:
+
+        0 0 8px
+        rgba(245,215,122,0.9),
+
+        0 0 25px
+        rgba(212,175,55,0.6);
+
+    animation:
+        treeLightPulse 2s ease-in-out infinite alternate;
+
+}
+
+
+.light1 {
+    left: 45px;
+    top: 55px;
+}
+
+.light2 {
+    left: 90px;
+    top: 72px;
+}
+
+.light3 {
+    left: 60px;
+    top: 105px;
+}
+
+.light4 {
+    left: 110px;
+    top: 115px;
+}
+
+.light5 {
+    left: 35px;
+    top: 125px;
+}
+
+
+@keyframes treeLightPulse {
+
+    from {
+        opacity: 0.35;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.25);
+    }
+
+}
+
+
+/* =========================================================
+   FIREFLIES
+   ========================================================= */
+
+.fireflies {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+}
+
+
+.firefly {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        var(--gold-bright);
+
+    box-shadow:
+        0 0 10px
+        rgba(245,215,122,0.8);
 
     opacity: 0;
 
-    transition:
-        transform 0.7s ease,
-        opacity 2s ease;
-
-}
-
-
-.worldAwake .memoryFragment {
-
-    opacity: 1;
-
     animation:
-        fragmentFloat 4s ease-in-out infinite;
+        fireflyMove 5s ease-in-out infinite;
 
 }
 
 
-@keyframes fragmentFloat {
+@keyframes fireflyMove {
 
-    0%, 100% {
-        transform:
-            translate(-50%, -50%)
-            translateY(0);
+    0% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+
+    25% {
+        opacity: 0.8;
     }
 
     50% {
-        transform:
-            translate(-50%, -50%)
-            translateY(-12px);
+        opacity: 0.3;
+        transform: translate(25px, -20px);
+    }
+
+    75% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-15px, -45px);
     }
 
 }
 
 
-/* CORE */
+/* =========================================================
+   FOG
+   ========================================================= */
 
-.fragmentCore {
+.forestFog {
+
+    position: absolute;
+
+    left: -20%;
+
+    width: 140%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(200,210,220,0.035);
+
+    filter:
+        blur(25px);
+
+    pointer-events: none;
+
+}
+
+
+.fogBack {
+
+    z-index: 10;
+
+    bottom: 35%;
+
+    height: 18%;
+
+    animation:
+        fogDrift 18s ease-in-out infinite alternate;
+
+}
+
+
+.fogMiddle {
+
+    z-index: 25;
+
+    bottom: 20%;
+
+    height: 15%;
+
+    opacity: 0.6;
+
+    animation:
+        fogDrift 13s ease-in-out infinite alternate-reverse;
+
+}
+
+
+.fogFront {
+
+    z-index: 50;
+
+    bottom: 5%;
+
+    height: 12%;
+
+    opacity: 0.35;
+
+}
+
+
+@keyframes fogDrift {
+
+    from {
+        transform: translateX(-4%);
+    }
+
+    to {
+        transform: translateX(4%);
+    }
+
+}
+
+
+/* =========================================================
+   DISCOVERY
+   ========================================================= */
+
+.forestDiscovery {
+
+    position: absolute;
+
+    z-index: 60;
+
+    left: 50%;
+
+    bottom: 39%;
+
+    width: 75px;
+    height: 75px;
+
+    transform:
+        translateX(-50%);
+
+    cursor: pointer;
+
+}
+
+
+.discoveryCore {
 
     position: absolute;
 
     left: 50%;
-
     top: 50%;
 
-    width: 17px;
-
-    height: 17px;
+    width: 13px;
+    height: 13px;
 
     transform:
         translate(-50%, -50%)
         rotate(45deg);
 
     background:
-
-        linear-gradient(
-            135deg,
-            #FFF8E7,
-            #F5D77A 50%,
-            #D4AF37
-        );
+        var(--gold-white);
 
     box-shadow:
 
         0 0 15px
-        rgba(245,215,122,0.9),
+        rgba(245,215,122,1),
 
         0 0 45px
-        rgba(212,175,55,0.55),
-
-        0 0 90px
-        rgba(181,18,27,0.25);
-
-    transition:
-        transform 0.7s ease;
+        rgba(212,175,55,0.7);
 
 }
 
 
-/* RING */
-
-.fragmentRing {
+.discoveryOrbit {
 
     position: absolute;
 
     left: 50%;
-
     top: 50%;
 
     width: 55px;
-
     height: 55px;
 
     transform:
@@ -1952,19 +2536,19 @@ body {
     border-radius: 50%;
 
     animation:
-        ringPulse 2.5s ease-in-out infinite;
+        discoveryPulse 2.5s ease-in-out infinite;
 
 }
 
 
-@keyframes ringPulse {
+@keyframes discoveryPulse {
 
     0%, 100% {
         transform:
             translate(-50%, -50%)
-            scale(0.85);
+            scale(0.8);
 
-        opacity: 0.35;
+        opacity: 0.3;
     }
 
     50% {
@@ -1978,104 +2562,28 @@ body {
 }
 
 
-/* DUST */
+.forestDiscovery:hover {
 
-.fragmentDust {
+    transform:
+        translateX(-50%)
+        scale(1.15);
+
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.forestIntro {
 
     position: absolute;
 
-    left: 50%;
+    z-index: 70;
 
-    top: 50%;
-
-    width: 100px;
-
-    height: 100px;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-            circle,
-            rgba(245,215,122,0.12),
-            transparent 65%
-        );
-
-    filter:
-        blur(5px);
-
-}
-
-
-/* HOVER */
-
-.memoryFragment:hover {
-
-    transform:
-        translate(-50%, -50%)
-        scale(1.12);
-
-}
-
-
-.memoryFragment:hover .fragmentCore {
-
-    transform:
-        translate(-50%, -50%)
-        rotate(135deg)
-        scale(1.2);
-
-}
-
-
-/* DISCOVERED */
-
-.memoryFragment.discovered {
-
-    animation:
-        fragmentDisappear 1s ease forwards;
-
-}
-
-
-@keyframes fragmentDisappear {
-
-    0% {
-        transform:
-            translate(-50%, -50%)
-            scale(1);
-    }
-
-    40% {
-        transform:
-            translate(-50%, -50%)
-            scale(2.5);
-    }
-
-    100% {
-        transform:
-            translate(-50%, -50%)
-            scale(0);
-    }
-
-}
-
-
-/* INSTRUCTION */
-
-.sceneInstruction {
-
-    position: absolute;
-
-    z-index: 30;
+    top: 7%;
 
     left: 50%;
-
-    bottom: 7%;
 
     transform:
         translateX(-50%);
@@ -2087,67 +2595,76 @@ body {
     opacity: 0;
 
     transition:
-        opacity 2s ease 2s;
+        opacity 2s ease 1.5s;
 
 }
 
 
-.worldAwake .sceneInstruction {
+.forestAwake .forestIntro {
     opacity: 1;
 }
 
 
-.sceneInstruction span {
-
-    display: block;
-
-    margin-bottom: 8px;
+.forestIntro span {
 
     color:
         var(--gold);
 
-    font-size: 12px;
+    font-size: 9px;
 
-    animation:
-        hintPulse 2s ease-in-out infinite;
+    letter-spacing: 0.5em;
 
 }
 
 
-.sceneInstruction p {
+.forestIntro h1 {
+
+    margin:
+        12px 0;
+
+    color:
+        var(--white);
+
+    font-family:
+        "Bodoni Moda", serif;
+
+    font-size:
+        clamp(34px, 5vw, 65px);
+
+    font-weight: 400;
+
+}
+
+
+.forestIntro p {
 
     margin: 0;
 
     color:
-        rgba(255,248,231,0.4);
+        rgba(255,248,231,0.42);
 
-    font-family:
-        "Inter", sans-serif;
+    font-size: 11px;
 
-    font-size: 10px;
+    line-height: 1.7;
 
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
 
 }
 
 
-/* COUNTER */
+/* =========================================================
+   COUNTER
+   ========================================================= */
 
-.discoveryCounter {
+.forestCounter {
 
     position: absolute;
 
-    z-index: 40;
+    z-index: 80;
 
     top: 6%;
 
     right: 5%;
-
-    display: flex;
-
-    align-items: baseline;
-
-    gap: 5px;
 
     opacity: 0;
 
@@ -2157,12 +2674,12 @@ body {
 }
 
 
-.worldAwake .discoveryCounter {
+.forestAwake .forestCounter {
     opacity: 1;
 }
 
 
-.discoveryCounter span {
+.forestCounter span {
 
     color:
         var(--gold-bright);
@@ -2175,51 +2692,52 @@ body {
 }
 
 
-.discoveryCounter small {
+.forestCounter small {
+
+    margin-left: 4px;
 
     color:
         rgba(255,248,231,0.35);
 
     font-size: 9px;
 
-    letter-spacing: 0.1em;
-
 }
 
 
-/* DISCOVERY REVEAL */
+/* =========================================================
+   REVEAL
+   ========================================================= */
 
-.discoveryReveal {
+.forestReveal {
 
     position: absolute;
 
-    z-index: 100;
-
     inset: 0;
+
+    z-index: 200;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     background:
         rgba(2,5,11,0.78);
 
     backdrop-filter:
-        blur(10px);
+        blur(12px);
 
     opacity: 0;
 
     pointer-events: none;
 
     transition:
-        opacity 1.2s ease;
+        opacity 1s ease;
 
 }
 
 
-.discoveryReveal.show {
+.forestReveal.show {
 
     opacity: 1;
 
@@ -2228,26 +2746,19 @@ body {
 }
 
 
-.revealLight {
+.revealGlow {
 
     position: absolute;
 
-    left: 50%;
+    width: 500px;
+    height: 500px;
 
-    top: 50%;
-
-    width: 400px;
-
-    height: 400px;
-
-    transform:
-        translate(-50%, -50%);
+    border-radius: 50%;
 
     background:
-
         radial-gradient(
             circle,
-            rgba(212,175,55,0.12),
+            rgba(212,175,55,0.13),
             transparent 65%
         );
 
@@ -2257,20 +2768,20 @@ body {
 }
 
 
-.revealContent {
+.forestRevealContent {
 
     position: relative;
 
     text-align: center;
 
-    max-width: 500px;
+    max-width: 520px;
 
     padding: 40px;
 
 }
 
 
-.revealNumber {
+.forestRevealContent > span {
 
     color:
         var(--gold);
@@ -2282,13 +2793,13 @@ body {
 }
 
 
-.revealLine {
+.forestRevealLine {
 
-    width: 40px;
-
+    width: 45px;
     height: 1px;
 
-    margin: 20px auto;
+    margin:
+        20px auto;
 
     background:
         var(--gold);
@@ -2296,7 +2807,7 @@ body {
 }
 
 
-.revealContent h2 {
+.forestRevealContent h2 {
 
     margin: 0;
 
@@ -2307,14 +2818,14 @@ body {
         "Bodoni Moda", serif;
 
     font-size:
-        clamp(34px, 5vw, 60px);
+        clamp(38px, 6vw, 68px);
 
     font-weight: 400;
 
 }
 
 
-.revealContent p {
+.forestRevealContent p {
 
     margin:
         15px 0 30px;
@@ -2324,10 +2835,12 @@ body {
 
     font-size: 13px;
 
+    line-height: 1.7;
+
 }
 
 
-#continueDiscovery {
+#forestContinue {
 
     padding:
         13px 28px;
@@ -2348,14 +2861,10 @@ body {
 
     cursor: pointer;
 
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
-
 }
 
 
-#continueDiscovery:hover {
+#forestContinue:hover {
 
     background:
         var(--gold);
@@ -2366,98 +2875,136 @@ body {
 }
 
 
-/* FIRST DISCOVERY WORLD RESPONSE */
+/* =========================================================
+   DISCOVERY REACTION
+   ========================================================= */
 
-#sceneOne.firstDiscovery .worldStars {
+.forestDiscovery.discovered {
 
     animation:
-        starsSurge 2s ease;
+        discoveryExplode 1.2s ease forwards;
 
 }
 
 
-#sceneOne.firstDiscovery .worldMoon {
-
-    box-shadow:
-
-        0 0 50px
-        rgba(245,215,122,0.35),
-
-        0 0 130px
-        rgba(245,215,122,0.18);
-
-}
-
-
-#sceneOne.firstDiscovery .distantLight {
-
-    transform:
-        translateX(-50%)
-        scale(2);
-
-    transition:
-        transform 1s ease;
-
-}
-
-
-@keyframes starsSurge {
+@keyframes discoveryExplode {
 
     0% {
         transform:
+            translateX(-50%)
             scale(1);
     }
 
-    50% {
+    35% {
         transform:
-            scale(1.05);
+            translateX(-50%)
+            scale(2.5);
     }
 
     100% {
         transform:
-            scale(1);
+            translateX(-50%)
+            scale(0);
+        opacity: 0;
     }
 
 }
 
 
-/* MOBILE */
+#sceneOne.memoryFound .memoryTree {
+
+    filter:
+        drop-shadow(
+            0 0 55px rgba(212,175,55,0.4)
+        );
+
+}
+
+
+#sceneOne.memoryFound .treeLight {
+
+    animation-duration:
+        0.7s;
+
+}
+
+
+#sceneOne.memoryFound .forestStars {
+
+    animation:
+        forestStarsSurge 1.8s ease;
+
+}
+
+
+@keyframes forestStarsSurge {
+
+    50% {
+        transform:
+            scale(1.08);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 700px) {
 
-    .worldMoon {
-        top: 12%;
+    .forestIntro {
+        top: 8%;
+        width: 90%;
     }
 
 
-    .memoryFragment {
-        top: 57%;
+    .forestIntro h1 {
+        font-size: 40px;
     }
 
 
-    .sceneInstruction {
-        bottom: 8%;
+    .forestIntro p {
+        font-size: 9px;
     }
 
 
-    .sceneInstruction p {
-        font-size: 8px;
+    .forestMoon {
+        top: 14%;
     }
 
 
-    .discoveryCounter {
+    .memoryTree {
+        bottom: 28%;
+        transform:
+            translateX(-50%)
+            scale(0.75);
+    }
+
+
+    .forestDiscovery {
+        bottom: 39%;
+    }
+
+
+    .treeFront .tree1 {
+        transform: scale(0.8);
+    }
+
+
+    .treeFront .tree4 {
+        transform: scale(0.9);
+    }
+
+
+    .forestCounter {
         top: 4%;
         right: 6%;
     }
 
 
-    .revealContent {
-        padding: 30px;
-    }
-
-
-    .revealContent h2 {
-        font-size: 38px;
+    .forestRevealContent {
+        padding: 25px;
     }
 
 }
