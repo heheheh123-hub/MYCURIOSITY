@@ -702,49 +702,137 @@ function createWorldParticles() {
 
 function setupPondSymbols() {
 
-    const symbols = document.querySelectorAll(".reflectionSymbol");
+    const symbols =
+        document.querySelectorAll(
+            "#moonPond .reflectionSymbol"
+        );
 
     if (!symbols.length) return;
 
+
     symbols.forEach(function(symbol) {
 
-        symbol.addEventListener("click", function() {
+        symbol.addEventListener("click", function(event) {
+
+            event.stopPropagation();
+
 
             // Remove active state from all symbols
             symbols.forEach(function(other) {
-                other.classList.remove("symbolActive");
+
+                other.classList.remove(
+                    "symbolActive"
+                );
+
             });
 
+
             // Activate clicked symbol
-            symbol.classList.add("symbolActive");
+            symbol.classList.add(
+                "symbolActive"
+            );
 
-            // Get which symbol was clicked
-            const symbolType = symbol.dataset.symbol;
 
-            // Small ripple
-            const ripple = document.createElement("div");
-            ripple.classList.add("symbolRipple");
+            // Get symbol type
+            const symbolType =
+                symbol.dataset.symbol;
 
-            symbol.parentElement.appendChild(ripple);
+
+            // Create ripple
+            const ripple =
+                document.createElement("div");
+
+            ripple.classList.add(
+                "symbolRipple"
+            );
+
+
+            symbol.parentElement.appendChild(
+                ripple
+            );
+
 
             setTimeout(function() {
+
                 ripple.remove();
+
             }, 1200);
 
-            // Different reaction for each symbol
+
+            // Symbol reactions
             if (symbolType === "moon") {
-                showPondMessage("The moon remembers.");
+
+                showPondMessage(
+                    "The moon remembers."
+                );
+
             }
 
             if (symbolType === "star") {
-                showPondMessage("Some things are written in the stars.");
+
+                showPondMessage(
+                    "Some things are written in the stars."
+                );
+
             }
 
             if (symbolType === "heart") {
-                showPondMessage("Some things are written in the heart.");
+
+                showPondMessage(
+                    "Some things are written in the heart."
+                );
+
             }
 
         });
+
+    });
+
+}
+
+
+function showPondMessage(message) {
+
+    let messageBox =
+        document.querySelector(".pondMessage");
+
+
+    if (!messageBox) {
+
+        messageBox =
+            document.createElement("div");
+
+        messageBox.className =
+            "pondMessage";
+
+
+        const pond =
+            document.getElementById("moonPond");
+
+        if (!pond) return;
+
+
+        pond.appendChild(
+            messageBox
+        );
+
+    }
+
+
+    messageBox.textContent =
+        message;
+
+
+    messageBox.classList.remove(
+        "pondMessageShow"
+    );
+
+
+    requestAnimationFrame(() => {
+
+        messageBox.classList.add(
+            "pondMessageShow"
+        );
 
     });
 
