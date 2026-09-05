@@ -137,147 +137,83 @@ function createSceneOne() {
 
     sceneOne.innerHTML = `
 
-        <div class="memoryWorld">
+        <div class="world">
 
-            <div class="worldGlow"></div>
+            <div class="worldSky"></div>
 
-            <div class="worldParticles"></div>
+            <div class="worldHaze"></div>
 
-            <div class="worldTitle">
-                <p>CHAPTER I</p>
-                <h1>The Memory Room</h1>
-                <span>Some things are meant to be discovered.</span>
-            </div>
+            <div class="worldStars"></div>
 
+            <div class="worldMoon"></div>
 
-            <!-- WINDOW -->
+            <div class="worldHorizon"></div>
 
-            <div class="worldObject windowObject" id="windowObject">
+            <div class="distantLight"></div>
 
-                <div class="windowGlow"></div>
+            <div class="worldGround">
 
-                <div class="windowFrame">
+                <div class="pathGlow"></div>
 
-                    <div class="windowSky">
-                        <div class="windowMoon"></div>
-                        <div class="windowStar starA"></div>
-                        <div class="windowStar starB"></div>
-                        <div class="windowStar starC"></div>
-                    </div>
-
-                </div>
-
-                <div class="objectLabel">
-                    <span>?</span>
-                    <p>THE FUTURE</p>
-                </div>
+                <div class="path"></div>
 
             </div>
 
 
-            <!-- BOOK -->
+            <div class="memoryFragment" id="firstFragment">
 
-            <div class="worldObject bookObject" id="bookObject">
+                <div class="fragmentCore"></div>
 
-                <div class="book">
+                <div class="fragmentRing"></div>
 
-                    <div class="bookCover">
-                        <span>MEMORIES</span>
-                        <small>VOL. I</small>
-                    </div>
-
-                </div>
-
-                <div class="objectLabel">
-                    <span>01</span>
-                    <p>MEMORIES</p>
-                </div>
+                <div class="fragmentDust"></div>
 
             </div>
 
 
-            <!-- LETTER -->
+            <div class="sceneInstruction">
 
-            <div class="worldObject letterObject" id="letterObject">
-
-                <div class="letterEnvelope">
-
-                    <div class="envelopeFlap"></div>
-
-                    <div class="letterSeal">
-                        ♥
-                    </div>
-
-                </div>
-
-                <div class="objectLabel">
-                    <span>02</span>
-                    <p>A LETTER</p>
-                </div>
-
-            </div>
-
-
-            <!-- CANDLE -->
-
-            <div class="worldObject candleObject" id="candleObject">
-
-                <div class="candle">
-
-                    <div class="flame"></div>
-
-                </div>
-
-                <div class="objectLabel">
-                    <span>03</span>
-                    <p>WORDS</p>
-                </div>
-
-            </div>
-
-
-            <!-- LOCKED BOX -->
-
-            <div class="worldObject boxObject" id="boxObject">
-
-                <div class="mysteryBox">
-
-                    <div class="boxLid"></div>
-                    <div class="boxLock">✦</div>
-
-                </div>
-
-                <div class="objectLabel">
-                    <span>?</span>
-                    <p>LOCKED</p>
-                </div>
-
-            </div>
-
-
-            <div class="worldHint">
                 <span>✦</span>
-                Explore.
+
+                <p>Something is waiting for you.</p>
+
             </div>
 
-        </div>
+
+            <div class="discoveryCounter">
+
+                <span>00</span>
+
+                <small>/ 25</small>
+
+            </div>
 
 
-        <!-- OBJECT MESSAGE -->
+            <div class="discoveryReveal" id="discoveryReveal">
 
-        <div id="objectMessage">
+                <div class="revealLight"></div>
 
-            <div class="messageInner">
+                <div class="revealContent">
 
-                <span class="messageNumber"></span>
+                    <span class="revealNumber">
+                        DISCOVERY 01
+                    </span>
 
-                <h2></h2>
+                    <div class="revealLine"></div>
 
-                <p></p>
+                    <h2>
+                        The beginning.
+                    </h2>
 
-                <button id="closeObject">
-                    RETURN
-                </button>
+                    <p>
+                        Every story has one.
+                    </p>
+
+                    <button id="continueDiscovery">
+                        CONTINUE
+                    </button>
+
+                </div>
 
             </div>
 
@@ -287,58 +223,149 @@ function createSceneOne() {
 
     document.body.appendChild(sceneOne);
 
-    createWorldParticles();
+
+    createWorldStars();
+
 
     requestAnimationFrame(() => {
+
         sceneOne.classList.add("visible");
+
+        setTimeout(() => {
+
+            sceneOne.classList.add("worldAwake");
+
+        }, 700);
+
     });
 
 
-    setupWorldObject(
-        "bookObject",
-        "01",
-        "Memories",
-        "A whole world made from little moments.",
-        "This is where her memories will eventually live."
-    );
+    const fragment =
+        document.getElementById("firstFragment");
 
 
-    setupWorldObject(
-        "letterObject",
-        "02",
-        "A Letter",
-        "There are some things I could never fit into a conversation.",
-        "This will eventually become one of the most important parts of the experience."
-    );
+    fragment.addEventListener("click", discoverFirstFragment);
 
 
-    setupWorldObject(
-        "candleObject",
-        "03",
-        "Words",
-        "Things I love about you. Things you don't realise. Things I hope you never forget.",
-        "This room is only the beginning."
-    );
+    let pointerX = 0;
+    let pointerY = 0;
 
 
-setupWorldObject(
-    "boxObject",
-    "?",
-    "Something is locked.",
-    "You probably shouldn't be able to open this yet.",
-    "Maybe you'll figure it out later."
-);
+    sceneOne.addEventListener("pointermove", (event) => {
+
+        pointerX =
+            (event.clientX / window.innerWidth - 0.5);
+
+        pointerY =
+            (event.clientY / window.innerHeight - 0.5);
 
 
-    setupWorldObject(
-        "windowObject",
-        "?",
-        "The Future",
-        "There are places in this world that don't exist yet.",
-        "Some things have to wait until the right moment."
-    );
+        sceneOne.style.setProperty(
+            "--mouse-x",
+            pointerX
+        );
+
+        sceneOne.style.setProperty(
+            "--mouse-y",
+            pointerY
+        );
+
+    });
+
+
+    document
+        .getElementById("continueDiscovery")
+        .addEventListener("click", () => {
+
+            document
+                .getElementById("discoveryReveal")
+                .classList.remove("show");
+
+        });
+
 }
 
+
+function createWorldStars() {
+
+    const container =
+        document.querySelector(".worldStars");
+
+    if (!container) return;
+
+
+    for (let i = 0; i < 150; i++) {
+
+        const star =
+            document.createElement("span");
+
+        star.classList.add("worldStar");
+
+
+        star.style.left =
+            (Math.random() * 100) + "%";
+
+
+        star.style.top =
+            (Math.random() * 70) + "%";
+
+
+        const size =
+            Math.random() * 2 + 0.5;
+
+
+        star.style.width =
+            size + "px";
+
+
+        star.style.height =
+            size + "px";
+
+
+        star.style.animationDelay =
+            (Math.random() * 5) + "s";
+
+
+        container.appendChild(star);
+
+    }
+
+}
+
+
+function discoverFirstFragment() {
+
+    const fragment =
+        document.getElementById("firstFragment");
+
+
+    if (fragment.classList.contains("discovered")) {
+        return;
+    }
+
+
+    fragment.classList.add("discovered");
+
+
+    document
+        .querySelector(".discoveryCounter span")
+        .textContent = "01";
+
+
+    document
+        .getElementById("sceneOne")
+        .classList.add("firstDiscovery");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("discoveryReveal")
+            .classList.add("show");
+
+    }, 1100);
+
+}
 function setupWorldObject(id, number, title, text, extra) {
 
     const object = document.getElementById(id);
