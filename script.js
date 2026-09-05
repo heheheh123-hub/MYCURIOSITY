@@ -481,43 +481,30 @@ function discoverForestMemory() {
 
     discovery.classList.add("discovered");
 
-    /* UPDATE COUNTER */
-
     document
         .querySelector(".forestCounter span")
         .textContent = "01";
 
-
-    /* WAKE THE TREE */
-
     const tree =
         document.getElementById("memoryTree");
+
+    const forest =
+        document.querySelector(".forestWorld");
 
     if (tree) {
         tree.classList.add("treeAwakened");
     }
 
-
-    /* WAKE THE FOREST */
-
-    const forest =
-        document.querySelector(".forestWorld");
-
     if (forest) {
         forest.classList.add("forestReaction");
     }
 
+    /* CREATE THE BURST */
 
-    /* MAKE THE DISCOVERY ORB DISAPPEAR */
-
-    setTimeout(() => {
-
-        discovery.classList.add("discoveryComplete");
-
-    }, 500);
+    createMemoryParticles();
 
 
-    /* SHOW DISCOVERY 01 */
+    /* SHOW DISCOVERY AFTER THE REACTION */
 
     setTimeout(() => {
 
@@ -525,7 +512,76 @@ function discoverForestMemory() {
             .getElementById("forestReveal")
             .classList.add("show");
 
-    }, 1600);
+    }, 2200);
+
+}
+
+function createMemoryParticles() {
+
+    const world =
+        document.querySelector(".forestWorld");
+
+    if (!world) return;
+
+
+    for (let i = 0; i < 70; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.classList.add("memoryParticle");
+
+
+        const startX =
+            50 + (Math.random() * 14 - 7);
+
+        const startY =
+            52 + (Math.random() * 15 - 7);
+
+
+        const endX =
+            Math.random() * 100;
+
+        const endY =
+            Math.random() * 100;
+
+
+        particle.style.left =
+            startX + "%";
+
+        particle.style.top =
+            startY + "%";
+
+
+        particle.style.setProperty(
+            "--particle-x",
+            (endX - startX) + "vw"
+        );
+
+        particle.style.setProperty(
+            "--particle-y",
+            (endY - startY) + "vh"
+        );
+
+
+        particle.style.animationDelay =
+            (Math.random() * 0.8) + "s";
+
+
+        particle.style.animationDuration =
+            (1.2 + Math.random() * 1.4) + "s";
+
+
+        world.appendChild(particle);
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 3000);
+
+    }
 
 }
 
