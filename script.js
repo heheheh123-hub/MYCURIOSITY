@@ -786,21 +786,28 @@ function setupPondSymbols() {
 
 
             // Correct symbol
-            if (
-                pondSequence.length ===
-                correctPondSequence.length
-            ) {
+if (
+    pondSequence.length ===
+    correctPondSequence.length
+) {
 
-                showPondMessage(
-                    "The forest remembers."
-                );
+    showPondMessage(
+        "The forest remembers."
+    );
 
 
-                console.log(
-                    "POND PUZZLE COMPLETE"
-                );
+    console.log(
+        "POND PUZZLE COMPLETE"
+    );
 
-            }
+
+    setTimeout(function() {
+
+        completePondPuzzle();
+
+    }, 1800);
+
+}
 
         });
 
@@ -853,5 +860,57 @@ function showPondMessage(message) {
         );
 
     });
+
+}
+
+
+function completePondPuzzle() {
+
+    const forest =
+        document.querySelector(".forestWorld");
+
+
+    const reveal =
+        document.getElementById("forestReveal");
+
+
+    if (reveal) {
+
+        reveal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    if (forest) {
+
+        forest.classList.add(
+            "memoryUnlocked"
+        );
+
+    }
+
+
+    setTimeout(function() {
+
+        const counter =
+            document.querySelector(
+                ".forestCounter span"
+            );
+
+
+        if (counter) {
+
+            counter.textContent = "02";
+
+        }
+
+
+        console.log(
+            "DISCOVERY 02 UNLOCKED"
+        );
+
+    }, 1200);
 
 }
