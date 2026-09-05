@@ -136,46 +136,263 @@ function createSceneOne() {
     sceneOne.id = "sceneOne";
 
     sceneOne.innerHTML = `
-        <div class="sceneOneSky"></div>
 
-        <div class="sceneOneContent">
+        <div class="memoryWorld">
 
-            <p class="sceneOneLabel">
-                CHAPTER I
-            </p>
+            <div class="worldGlow"></div>
 
-            <h1>
-                Somewhere<br>
-                between memory<br>
-                and imagination.
-            </h1>
+            <div class="worldParticles"></div>
 
-            <p class="sceneOneHint">
-                There's something here.
-            </p>
+            <div class="worldTitle">
+                <p>CHAPTER I</p>
+                <h1>The Memory Room</h1>
+                <span>Some things are meant to be discovered.</span>
+            </div>
 
-            <button id="sceneOneStart">
-                EXPLORE
-            </button>
+
+            <!-- WINDOW -->
+
+            <div class="worldObject windowObject" id="windowObject">
+
+                <div class="windowGlow"></div>
+
+                <div class="windowFrame">
+
+                    <div class="windowSky">
+                        <div class="windowMoon"></div>
+                        <div class="windowStar starA"></div>
+                        <div class="windowStar starB"></div>
+                        <div class="windowStar starC"></div>
+                    </div>
+
+                </div>
+
+                <div class="objectLabel">
+                    <span>?</span>
+                    <p>THE FUTURE</p>
+                </div>
+
+            </div>
+
+
+            <!-- BOOK -->
+
+            <div class="worldObject bookObject" id="bookObject">
+
+                <div class="book">
+
+                    <div class="bookCover">
+                        <span>MEMORIES</span>
+                        <small>VOL. I</small>
+                    </div>
+
+                </div>
+
+                <div class="objectLabel">
+                    <span>01</span>
+                    <p>MEMORIES</p>
+                </div>
+
+            </div>
+
+
+            <!-- LETTER -->
+
+            <div class="worldObject letterObject" id="letterObject">
+
+                <div class="letterEnvelope">
+
+                    <div class="envelopeFlap"></div>
+
+                    <div class="letterSeal">
+                        ♥
+                    </div>
+
+                </div>
+
+                <div class="objectLabel">
+                    <span>02</span>
+                    <p>A LETTER</p>
+                </div>
+
+            </div>
+
+
+            <!-- CANDLE -->
+
+            <div class="worldObject candleObject" id="candleObject">
+
+                <div class="candle">
+
+                    <div class="flame"></div>
+
+                </div>
+
+                <div class="objectLabel">
+                    <span>03</span>
+                    <p>WORDS</p>
+                </div>
+
+            </div>
+
+
+            <!-- LOCKED BOX -->
+
+            <div class="worldObject boxObject" id="boxObject">
+
+                <div class="mysteryBox">
+
+                    <div class="boxLid"></div>
+                    <div class="boxLock">✦</div>
+
+                </div>
+
+                <div class="objectLabel">
+                    <span>?</span>
+                    <p>LOCKED</p>
+                </div>
+
+            </div>
+
+
+            <div class="worldHint">
+                <span>✦</span>
+                Explore.
+            </div>
 
         </div>
+
+
+        <!-- OBJECT MESSAGE -->
+
+        <div id="objectMessage">
+
+            <div class="messageInner">
+
+                <span class="messageNumber"></span>
+
+                <h2></h2>
+
+                <p></p>
+
+                <button id="closeObject">
+                    RETURN
+                </button>
+
+            </div>
+
+        </div>
+
     `;
 
     document.body.appendChild(sceneOne);
+
+    createWorldParticles();
 
     requestAnimationFrame(() => {
         sceneOne.classList.add("visible");
     });
 
+
+    setupWorldObject(
+        "bookObject",
+        "01",
+        "Memories",
+        "A whole world made from little moments.",
+        "This is where her memories will eventually live."
+    );
+
+
+    setupWorldObject(
+        "letterObject",
+        "02",
+        "A Letter",
+        "There are some things I could never fit into a conversation.",
+        "This will eventually become one of the most important parts of the experience."
+    );
+
+
+    setupWorldObject(
+        "candleObject",
+        "03",
+        "Words",
+        "Things I love about you. Things you don't realise. Things I hope you never forget.",
+        "This room is only the beginning."
+    );
+
+
+setupWorldObject(
+    "boxObject",
+    "?",
+    "Something is locked.",
+    "You probably shouldn't be able to open this yet.",
+    "Maybe you'll figure it out later."
+);
+
+
+    setupWorldObject(
+        "windowObject",
+        "?",
+        "The Future",
+        "There are places in this world that don't exist yet.",
+        "Some things have to wait until the right moment."
+    );
+}
+
+function setupWorldObject(id, number, title, text, extra) {
+
+    const object = document.getElementById(id);
+
+    if (!object) return;
+
+    object.addEventListener("click", () => {
+
+        const message = document.getElementById("objectMessage");
+
+        message.querySelector(".messageNumber").textContent = number;
+        message.querySelector("h2").textContent = title;
+        message.querySelector("p").textContent = text + " " + extra;
+
+        message.classList.add("show");
+
+    });
+}
+
+
+function createWorldParticles() {
+
+    const container = document.querySelector(".worldParticles");
+
+    if (!container) return;
+
+    for (let i = 0; i < 45; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.classList.add("worldParticle");
+
+        particle.style.left = (Math.random() * 100) + "%";
+        particle.style.top = (Math.random() * 100) + "%";
+
+        const size = Math.random() * 3 + 1;
+
+        particle.style.width = size + "px";
+        particle.style.height = size + "px";
+
+        particle.style.animationDelay =
+            (Math.random() * 6) + "s";
+
+        container.appendChild(particle);
+    }
+
+
     document
-        .getElementById("sceneOneStart")
+        .getElementById("closeObject")
         .addEventListener("click", () => {
 
-            console.log("Scene One begins.");
-
             document
-                .getElementById("sceneOneStart")
-                .textContent = "COMING SOON";
+                .getElementById("objectMessage")
+                .classList.remove("show");
 
         });
 }
