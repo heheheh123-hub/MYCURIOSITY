@@ -704,7 +704,7 @@ function setupPondSymbols() {
 
     const symbols = document.querySelectorAll(".reflectionSymbol");
 
-    if (!symbols.length) return;
+    if (!symbols.length) return;a
 
     symbols.forEach(function(symbol) {
 
@@ -725,7 +725,6 @@ function setupPondSymbols() {
             setTimeout(function() {
                 ripple.remove();
             }, 1200);
+    });
 
-        });
-        
 }
