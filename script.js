@@ -137,50 +137,134 @@ function createSceneOne() {
 
     sceneOne.innerHTML = `
 
-        <div class="world">
+        <div class="forestWorld">
 
-            <div class="worldSky"></div>
+            <!-- SKY -->
+            <div class="forestSky"></div>
 
-            <div class="worldHaze"></div>
+            <!-- MOON -->
+            <div class="forestMoon">
+                <div class="moonGlow"></div>
+            </div>
 
-            <div class="worldStars"></div>
+            <!-- DISTANT MOUNTAINS -->
+            <div class="mountains mountainBack"></div>
+            <div class="mountains mountainFront"></div>
 
-            <div class="worldMoon"></div>
+            <!-- STARS -->
+            <div class="forestStars"></div>
 
-            <div class="worldHorizon"></div>
+            <!-- ATMOSPHERE -->
+            <div class="forestFog fogBack"></div>
+            <div class="forestFog fogMiddle"></div>
+            <div class="forestFog fogFront"></div>
 
-            <div class="distantLight"></div>
+            <!-- BACK TREES -->
+            <div class="treeLayer treeBack">
 
-            <div class="worldGround">
+                <div class="tree tree1"></div>
+                <div class="tree tree2"></div>
+                <div class="tree tree3"></div>
+                <div class="tree tree4"></div>
+                <div class="tree tree5"></div>
+                <div class="tree tree6"></div>
+                <div class="tree tree7"></div>
+                <div class="tree tree8"></div>
 
-                <div class="pathGlow"></div>
+            </div>
 
-                <div class="path"></div>
+            <!-- MIDDLE TREES -->
+            <div class="treeLayer treeMiddle">
+
+                <div class="tree tree1"></div>
+                <div class="tree tree2"></div>
+                <div class="tree tree3"></div>
+                <div class="tree tree4"></div>
+                <div class="tree tree5"></div>
+                <div class="tree tree6"></div>
+
+            </div>
+
+            <!-- FOREGROUND TREES -->
+            <div class="treeLayer treeFront">
+
+                <div class="tree tree1"></div>
+                <div class="tree tree2"></div>
+                <div class="tree tree3"></div>
+                <div class="tree tree4"></div>
 
             </div>
 
 
-            <div class="memoryFragment" id="firstFragment">
+            <!-- GROUND -->
+            <div class="forestGround">
 
-                <div class="fragmentCore"></div>
+                <div class="groundMist"></div>
 
-                <div class="fragmentRing"></div>
+                <div class="forestPath">
 
-                <div class="fragmentDust"></div>
+                    <div class="pathLight"></div>
 
-            </div>
-
-
-            <div class="sceneInstruction">
-
-                <span>✦</span>
-
-                <p>Something is waiting for you.</p>
+                </div>
 
             </div>
 
 
-            <div class="discoveryCounter">
+            <!-- GLOWING TREE -->
+            <div class="memoryTree" id="memoryTree">
+
+                <div class="treeTrunk"></div>
+
+                <div class="treeBranch branch1"></div>
+                <div class="treeBranch branch2"></div>
+                <div class="treeBranch branch3"></div>
+
+                <div class="treeCrown crown1"></div>
+                <div class="treeCrown crown2"></div>
+                <div class="treeCrown crown3"></div>
+
+                <div class="treeLight light1"></div>
+                <div class="treeLight light2"></div>
+                <div class="treeLight light3"></div>
+                <div class="treeLight light4"></div>
+                <div class="treeLight light5"></div>
+
+            </div>
+
+
+            <!-- FIREFLIES -->
+            <div class="fireflies"></div>
+
+
+            <!-- FIRST DISCOVERY -->
+            <div class="forestDiscovery" id="forestDiscovery">
+
+                <div class="discoveryCore"></div>
+
+                <div class="discoveryOrbit"></div>
+
+            </div>
+
+
+            <!-- INTRO TEXT -->
+            <div class="forestIntro">
+
+                <span>CHAPTER I</span>
+
+                <h1>
+                    The Forest
+                </h1>
+
+                <p>
+                    Somewhere in here,<br>
+                    something is waiting for you.
+                </p>
+
+            </div>
+
+
+            <!-- COUNTER -->
+            <div class="forestCounter">
 
                 <span>00</span>
 
@@ -189,27 +273,27 @@ function createSceneOne() {
             </div>
 
 
-            <div class="discoveryReveal" id="discoveryReveal">
+            <!-- DISCOVERY OVERLAY -->
+            <div class="forestReveal" id="forestReveal">
 
-                <div class="revealLight"></div>
+                <div class="revealGlow"></div>
 
-                <div class="revealContent">
+                <div class="forestRevealContent">
 
-                    <span class="revealNumber">
-                        DISCOVERY 01
-                    </span>
+                    <span>DISCOVERY 01</span>
 
-                    <div class="revealLine"></div>
+                    <div class="forestRevealLine"></div>
 
                     <h2>
                         The beginning.
                     </h2>
 
                     <p>
-                        Every story has one.
+                        Before everything else,
+                        there was a first moment.
                     </p>
 
-                    <button id="continueDiscovery">
+                    <button id="forestContinue">
                         CONTINUE
                     </button>
 
@@ -224,7 +308,9 @@ function createSceneOne() {
     document.body.appendChild(sceneOne);
 
 
-    createWorldStars();
+    createForestStars();
+
+    createFireflies();
 
 
     requestAnimationFrame(() => {
@@ -233,52 +319,35 @@ function createSceneOne() {
 
         setTimeout(() => {
 
-            sceneOne.classList.add("worldAwake");
+            sceneOne.classList.add("forestAwake");
 
-        }, 700);
-
-    });
-
-
-    const fragment =
-        document.getElementById("firstFragment");
-
-
-    fragment.addEventListener("click", discoverFirstFragment);
-
-
-    let pointerX = 0;
-    let pointerY = 0;
-
-
-    sceneOne.addEventListener("pointermove", (event) => {
-
-        pointerX =
-            (event.clientX / window.innerWidth - 0.5);
-
-        pointerY =
-            (event.clientY / window.innerHeight - 0.5);
-
-
-        sceneOne.style.setProperty(
-            "--mouse-x",
-            pointerX
-        );
-
-        sceneOne.style.setProperty(
-            "--mouse-y",
-            pointerY
-        );
+        }, 500);
 
     });
+
+
+    const discovery =
+        document.getElementById("forestDiscovery");
+
+
+    discovery.addEventListener(
+        "click",
+        discoverForestMemory
+    );
+
+
+    sceneOne.addEventListener(
+        "pointermove",
+        forestParallax
+    );
 
 
     document
-        .getElementById("continueDiscovery")
+        .getElementById("forestContinue")
         .addEventListener("click", () => {
 
             document
-                .getElementById("discoveryReveal")
+                .getElementById("forestReveal")
                 .classList.remove("show");
 
         });
@@ -286,20 +355,20 @@ function createSceneOne() {
 }
 
 
-function createWorldStars() {
+function createForestStars() {
 
     const container =
-        document.querySelector(".worldStars");
+        document.querySelector(".forestStars");
 
     if (!container) return;
 
 
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 120; i++) {
 
         const star =
             document.createElement("span");
 
-        star.classList.add("worldStar");
+        star.classList.add("forestStar");
 
 
         star.style.left =
@@ -307,7 +376,7 @@ function createWorldStars() {
 
 
         star.style.top =
-            (Math.random() * 70) + "%";
+            (Math.random() * 65) + "%";
 
 
         const size =
@@ -333,39 +402,113 @@ function createWorldStars() {
 }
 
 
-function discoverFirstFragment() {
+function createFireflies() {
 
-    const fragment =
-        document.getElementById("firstFragment");
+    const container =
+        document.querySelector(".fireflies");
+
+    if (!container) return;
 
 
-    if (fragment.classList.contains("discovered")) {
+    for (let i = 0; i < 35; i++) {
+
+        const fly =
+            document.createElement("span");
+
+        fly.classList.add("firefly");
+
+
+        fly.style.left =
+            (15 + Math.random() * 70) + "%";
+
+
+        fly.style.top =
+            (35 + Math.random() * 50) + "%";
+
+
+        fly.style.animationDelay =
+            (Math.random() * 6) + "s";
+
+
+        fly.style.animationDuration =
+            (4 + Math.random() * 5) + "s";
+
+
+        container.appendChild(fly);
+
+    }
+
+}
+
+
+function forestParallax(event) {
+
+    const scene =
+        document.getElementById("sceneOne");
+
+    if (!scene) return;
+
+
+    const x =
+        event.clientX / window.innerWidth - 0.5;
+
+
+    const y =
+        event.clientY / window.innerHeight - 0.5;
+
+
+    scene.style.setProperty(
+        "--forest-x",
+        x
+    );
+
+
+    scene.style.setProperty(
+        "--forest-y",
+        y
+    );
+
+}
+
+
+function discoverForestMemory() {
+
+    const discovery =
+        document.getElementById("forestDiscovery");
+
+
+    if (
+        discovery.classList.contains("discovered")
+    ) {
+
         return;
+
     }
 
 
-    fragment.classList.add("discovered");
+    discovery.classList.add("discovered");
 
 
     document
-        .querySelector(".discoveryCounter span")
+        .querySelector(".forestCounter span")
         .textContent = "01";
 
 
     document
         .getElementById("sceneOne")
-        .classList.add("firstDiscovery");
+        .classList.add("memoryFound");
 
 
     setTimeout(() => {
 
         document
-            .getElementById("discoveryReveal")
+            .getElementById("forestReveal")
             .classList.add("show");
 
-    }, 1100);
+    }, 1200);
 
 }
+
 function setupWorldObject(id, number, title, text, extra) {
 
     const object = document.getElementById(id);
