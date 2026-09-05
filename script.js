@@ -278,26 +278,25 @@ function createSceneOne() {
 
                 <div class="revealGlow"></div>
 
-                <div class="forestRevealContent">
+<div class="forestRevealContent">
 
-                    <span>DISCOVERY 01</span>
+    <span>DISCOVERY 01 / 25</span>
 
-                    <div class="forestRevealLine"></div>
+    <div class="forestRevealLine"></div>
 
-                    <h2>
-                        The beginning.
-                    </h2>
+    <h2>
+        The beginning.
+    </h2>
 
-                    <p>
-                        Before everything else,
-                        there was a first moment.
-                    </p>
+    <p>
+        Every story has a first moment.
+    </p>
 
-                    <button id="forestContinue">
-                        CONTINUE
-                    </button>
+    <button id="forestContinue">
+        CONTINUE
+    </button>
 
-                </div>
+</div>
 
             </div>
 
@@ -476,21 +475,17 @@ function discoverForestMemory() {
     const discovery =
         document.getElementById("forestDiscovery");
 
-    if (
-        discovery.classList.contains("discovered")
-    ) {
+    if (discovery.classList.contains("discovered")) {
         return;
     }
 
     discovery.classList.add("discovered");
 
+    /* UPDATE COUNTER */
+
     document
         .querySelector(".forestCounter span")
         .textContent = "01";
-
-    document
-        .getElementById("sceneOne")
-        .classList.add("memoryFound");
 
 
     /* WAKE THE TREE */
@@ -499,23 +494,30 @@ function discoverForestMemory() {
         document.getElementById("memoryTree");
 
     if (tree) {
-
         tree.classList.add("treeAwakened");
-
     }
 
 
-    /* FOREST REACTION */
+    /* WAKE THE FOREST */
 
     const forest =
         document.querySelector(".forestWorld");
 
     if (forest) {
-
         forest.classList.add("forestReaction");
-
     }
 
+
+    /* MAKE THE DISCOVERY ORB DISAPPEAR */
+
+    setTimeout(() => {
+
+        discovery.classList.add("discoveryComplete");
+
+    }, 500);
+
+
+    /* SHOW DISCOVERY 01 */
 
     setTimeout(() => {
 
@@ -523,9 +525,10 @@ function discoverForestMemory() {
             .getElementById("forestReveal")
             .classList.add("show");
 
-    }, 1500);
+    }, 1600);
 
 }
+
 function setupWorldObject(id, number, title, text, extra) {
 
     const object = document.getElementById(id);
