@@ -2895,29 +2895,19 @@ body {
    ========================================================= */
 
 .forestIntro {
-
     position: absolute;
 
-    z-index: 70;
-
-    top: 7%;
-
+    top: 4%;
     left: 50%;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
+
+    width: 90%;
 
     text-align: center;
 
-    pointer-events: none;
-
-    opacity: 0;
-
-    transition:
-        opacity 2s ease 1.5s;
-
+    z-index: 20;
 }
-
 
 .forestAwake .forestIntro {
     opacity: 1;
@@ -3453,5 +3443,127 @@ body {
 
         0 0 50px
         rgba(212,175,55,0.55);
+
+}
+
+/* =========================================================
+   MEMORY PARTICLES
+========================================================= */
+
+.memoryParticle {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #fff1b8;
+
+    box-shadow:
+
+        0 0 8px #f5d77a,
+
+        0 0 18px
+        rgba(245,215,122,0.8);
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    animation:
+        memoryParticleBurst
+        ease-out
+        forwards;
+
+}
+
+
+@keyframes memoryParticleBurst {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translate(0,0)
+            scale(0.3);
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--particle-x),
+                var(--particle-y)
+            )
+            scale(1.4);
+
+    }
+
+}
+
+.memoryTree.treeAwakened {
+
+    transform:
+        translateX(-50%)
+        translateY(-8px)
+        scale(1.08);
+
+    filter:
+
+        drop-shadow(
+            0 0 45px
+            rgba(245,215,122,0.7)
+        )
+
+        drop-shadow(
+            0 0 120px
+            rgba(212,175,55,0.4)
+        );
+
+}
+
+
+.memoryTree.treeAwakened .treeCrown {
+
+    animation:
+        crownAwaken
+        1.5s
+        ease-out
+        forwards;
+
+}
+
+
+@keyframes crownAwaken {
+
+    0% {
+
+        filter: brightness(1);
+
+    }
+
+    35% {
+
+        filter: brightness(2.2);
+
+    }
+
+    100% {
+
+        filter: brightness(1.35);
+
+    }
 
 }
