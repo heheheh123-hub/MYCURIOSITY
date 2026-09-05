@@ -175,5 +175,10 @@ function createSceneOne() {
                 .getElementById("sceneOneStart")
                 .textContent = "COMING SOON";
 
+console.log("SCRIPT IS WORKING");
+
+beginButton.addEventListener("click", () => {
+    console.log("BEGIN WAS CLICKED");
+});
         });
 }
