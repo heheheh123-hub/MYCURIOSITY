@@ -710,14 +710,19 @@ function setupPondSymbols() {
 
         symbol.addEventListener("click", function() {
 
+            // Remove active state from all symbols
             symbols.forEach(function(other) {
                 other.classList.remove("symbolActive");
             });
 
+            // Activate clicked symbol
             symbol.classList.add("symbolActive");
 
-            const ripple = document.createElement("div");
+            // Get which symbol was clicked
+            const symbolType = symbol.dataset.symbol;
 
+            // Small ripple
+            const ripple = document.createElement("div");
             ripple.classList.add("symbolRipple");
 
             symbol.parentElement.appendChild(ripple);
@@ -725,6 +730,19 @@ function setupPondSymbols() {
             setTimeout(function() {
                 ripple.remove();
             }, 1200);
+
+            // Different reaction for each symbol
+            if (symbolType === "moon") {
+                showPondMessage("The moon remembers.");
+            }
+
+            if (symbolType === "star") {
+                showPondMessage("Some things are written in the stars.");
+            }
+
+            if (symbolType === "heart") {
+                showPondMessage("Some things are written in the heart.");
+            }
 
         });
 
