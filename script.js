@@ -179,6 +179,5 @@ console.log("SCRIPT IS WORKING");
 
 beginButton.addEventListener("click", () => {
     console.log("BEGIN WAS CLICKED");
-});
         });
 }
