@@ -235,6 +235,26 @@ function createSceneOne() {
             <!-- FIREFLIES -->
             <div class="fireflies"></div>
 
+            <!-- MOONLIGHT POND -->
+
+<div class="moonPond" id="moonPond">
+
+    <div class="pondGlow"></div>
+
+    <div class="pondReflection">
+
+        <div class="reflectionMoon"></div>
+
+        <div class="reflectionSymbol symbolA">✦</div>
+        <div class="reflectionSymbol symbolB">◇</div>
+        <div class="reflectionSymbol symbolC">○</div>
+
+    </div>
+
+    <div class="pondRipple ripple1"></div>
+    <div class="pondRipple ripple2"></div>
+
+</div>
 
             <!-- FIRST DISCOVERY -->
             <div class="forestDiscovery" id="forestDiscovery">
@@ -488,12 +508,13 @@ function discoverForestMemory() {
     const tree =
         document.getElementById("memoryTree");
 
-    const forest =
-        document.querySelector(".forestWorld");
+setTimeout(() => {
 
-    if (tree) {
-        tree.classList.add("treeAwakened");
+    if (forest) {
+        forest.classList.add("pondRevealed");
     }
+
+}, 900);
 
     if (forest) {
         forest.classList.add("forestReaction");
