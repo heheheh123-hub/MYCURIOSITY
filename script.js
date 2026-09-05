@@ -700,37 +700,35 @@ function createWorldParticles() {
 
 function setupPondSymbols() {
 
-    const symbols =
-        document.querySelectorAll(".reflectionSymbol");
+    const symbols = document.querySelectorAll(".reflectionSymbol");
 
     if (!symbols.length) return;
 
-    symbols.forEach(symbol => {
+    symbols.forEach(function(symbol) {
 
-        symbol.addEventListener("click", () => {
+        symbol.addEventListener("click", function() {
 
-            /* Remove active state from the others */
-            symbols.forEach(other => {
+            symbols.forEach(function(other) {
                 other.classList.remove("symbolActive");
             });
 
-            /* Activate this symbol */
             symbol.classList.add("symbolActive");
 
-            /* Create a ripple */
-            const ripple =
-                document.createElement("div");
+            const ripple = document.createElement("div");
 
             ripple.classList.add("symbolRipple");
 
             symbol.parentElement.appendChild(ripple);
 
-            setTimeout(() => {
+            setTimeout(function() {
                 ripple.remove();
             }, 1200);
 
         });
 
+    });
+
+}
     });
 
 }
