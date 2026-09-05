@@ -179,6 +179,3 @@ function createSceneOne() {
 
         });
 }
-
-console.log("SCRIPT IS WORKING");
-```
