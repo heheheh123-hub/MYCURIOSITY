@@ -700,6 +700,15 @@ function createWorldParticles() {
         });
 }
 
+let pondSequence = [];
+
+const correctPondSequence = [
+    "moon",
+    "star",
+    "heart"
+];
+
+
 function setupPondSymbols() {
 
     const symbols =
@@ -710,6 +719,10 @@ function setupPondSymbols() {
     if (!symbols.length) return;
 
 
+    // Reset puzzle
+    pondSequence = [];
+
+
     symbols.forEach(function(symbol) {
 
         symbol.addEventListener("click", function(event) {
@@ -717,69 +730,74 @@ function setupPondSymbols() {
             event.stopPropagation();
 
 
-            // Remove active state from all symbols
-            symbols.forEach(function(other) {
-
-                other.classList.remove(
-                    "symbolActive"
-                );
-
-            });
+            const symbolType =
+                symbol.dataset.symbol;
 
 
-            // Activate clicked symbol
+            // Already clicked? Ignore it.
+            if (pondSequence.includes(symbolType)) {
+                return;
+            }
+
+
+            // Add to sequence
+            pondSequence.push(symbolType);
+
+
+            // Visual feedback
             symbol.classList.add(
                 "symbolActive"
             );
 
 
-            // Get symbol type
-            const symbolType =
-                symbol.dataset.symbol;
+            // Check if the player made a mistake
+            const currentStep =
+                pondSequence.length - 1;
 
 
-            // Create ripple
-            const ripple =
-                document.createElement("div");
-
-            ripple.classList.add(
-                "symbolRipple"
-            );
-
-
-            symbol.parentElement.appendChild(
-                ripple
-            );
-
-
-            setTimeout(function() {
-
-                ripple.remove();
-
-            }, 1200);
-
-
-            // Symbol reactions
-            if (symbolType === "moon") {
+            if (
+                symbolType !==
+                correctPondSequence[currentStep]
+            ) {
 
                 showPondMessage(
-                    "The moon remembers."
+                    "Not quite..."
                 );
 
+
+                // Reset after a moment
+                setTimeout(function() {
+
+                    pondSequence = [];
+
+                    symbols.forEach(function(other) {
+
+                        other.classList.remove(
+                            "symbolActive"
+                        );
+
+                    });
+
+                }, 900);
+
+
+                return;
             }
 
-            if (symbolType === "star") {
+
+            // Correct symbol
+            if (
+                pondSequence.length ===
+                correctPondSequence.length
+            ) {
 
                 showPondMessage(
-                    "Some things are written in the stars."
+                    "The forest remembers."
                 );
 
-            }
 
-            if (symbolType === "heart") {
-
-                showPondMessage(
-                    "Some things are written in the heart."
+                console.log(
+                    "POND PUZZLE COMPLETE"
                 );
 
             }
