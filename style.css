@@ -3327,3 +3327,131 @@ body {
     }
 
 }
+
+/* =========================================================
+   DISCOVERY 01 — ACTIVATION
+========================================================= */
+
+.forestDiscovery {
+
+    cursor: pointer;
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease,
+        filter 1s ease;
+
+}
+
+
+.forestDiscovery:hover {
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.12);
+
+}
+
+
+.forestDiscovery.discovered {
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.5);
+
+    filter:
+        brightness(1.8)
+        drop-shadow(
+            0 0 35px
+            rgba(245,215,122,0.8)
+        );
+
+}
+
+
+/* ORB DISAPPEARS */
+
+.forestDiscovery.discoveryComplete {
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(2.5);
+
+}
+
+
+/* =========================================================
+   FOREST REACTION
+========================================================= */
+
+.forestReaction .memoryTree {
+
+    filter:
+        drop-shadow(
+            0 0 35px
+            rgba(245,215,122,0.55)
+        )
+        drop-shadow(
+            0 0 100px
+            rgba(212,175,55,0.3)
+        );
+
+}
+
+
+.forestReaction .treeLight {
+
+    animation-duration: 1.5s;
+
+}
+
+
+.forestReaction .firefly {
+
+    animation-duration: 2s;
+
+}
+
+
+/* =========================================================
+   TREE AWAKENING
+========================================================= */
+
+.memoryTree.treeAwakened {
+
+    transform:
+        translateX(-50%)
+        translate(
+            calc(var(--forest-x) * -10px),
+            calc(var(--forest-y) * -6px)
+        )
+        scale(1.06);
+
+}
+
+
+.memoryTree.treeAwakened .treeCrown {
+
+    filter:
+        brightness(1.18);
+
+}
+
+
+.memoryTree.treeAwakened .treeLight {
+
+    box-shadow:
+
+        0 0 10px #fff1b8,
+
+        0 0 25px
+        rgba(245,215,122,0.9),
+
+        0 0 50px
+        rgba(212,175,55,0.55);
+
+}
