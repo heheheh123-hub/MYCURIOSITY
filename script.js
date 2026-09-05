@@ -245,9 +245,9 @@ function createSceneOne() {
 
         <div class="reflectionMoon"></div>
 
-        <div class="reflectionSymbol symbolA">✦</div>
-        <div class="reflectionSymbol symbolB">◇</div>
-        <div class="reflectionSymbol symbolC">○</div>
+<div class="reflectionSymbol symbolA">✦</div>
+<div class="reflectionSymbol symbolB">◆</div>
+<div class="reflectionSymbol symbolC">●</div>
 
     </div>
 
@@ -558,18 +558,18 @@ function discoverForestMemory() {
 
     /* SHOW DISCOVERY OVERLAY */
 
-    setTimeout(() => {
+setTimeout(() => {
 
-        const reveal =
-            document.getElementById("forestReveal");
+    setupPondSymbols();
 
-        if (reveal) {
-            reveal.classList.add("show");
-        }
+    const reveal =
+        document.getElementById("forestReveal");
 
-    }, 2200);
+    if (reveal) {
+        reveal.classList.add("show");
+    }
 
-}
+}, 2200);
 
 function createMemoryParticles() {
 
@@ -696,4 +696,41 @@ function createWorldParticles() {
                 .classList.remove("show");
 
         });
+}
+
+function setupPondSymbols() {
+
+    const symbols =
+        document.querySelectorAll(".reflectionSymbol");
+
+    if (!symbols.length) return;
+
+    symbols.forEach(symbol => {
+
+        symbol.addEventListener("click", () => {
+
+            /* Remove active state from the others */
+            symbols.forEach(other => {
+                other.classList.remove("symbolActive");
+            });
+
+            /* Activate this symbol */
+            symbol.classList.add("symbolActive");
+
+            /* Create a ripple */
+            const ripple =
+                document.createElement("div");
+
+            ripple.classList.add("symbolRipple");
+
+            symbol.parentElement.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 1200);
+
+        });
+
+    });
+
 }
