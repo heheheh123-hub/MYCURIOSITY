@@ -217,26 +217,7 @@ function createSceneOne() {
 
                 <div class="pondGlow"></div>
 
-                <div class="pondReflection">
-
-                    <div class="reflectionMoon"></div>
-
-                    <div
-                        class="reflectionSymbol symbolA"
-                        data-symbol="moon"
-                    >☾</div>
-
-                    <div
-                        class="reflectionSymbol symbolB"
-                        data-symbol="star"
-                    >★</div>
-
-                    <div
-                        class="reflectionSymbol symbolC"
-                        data-symbol="heart"
-                    >♥</div>
-
-                </div>
+                <div class="pondReflection" id="pondLetters"></div>
 
                 <div class="pondRipple ripple1"></div>
                 <div class="pondRipple ripple2"></div>
@@ -725,201 +706,217 @@ function createWorldParticles() {
 
 let pondSequence = [];
 
-const correctPondSequence = [
-    "moon",
-    "star",
-    "heart"
-];
-
+const correctPondSequence = ["A", "Y", "A", "T"];
 
 function setupPondSymbols() {
 
-    const symbols =
-        document.querySelectorAll(
-            "#moonPond .reflectionSymbol"
-        );
+    const pondLetters = document.getElementById("pondLetters");
 
-    if (!symbols.length) return;
+    if (!pondLetters) return;
 
-
-    // Reset puzzle
+    pondLetters.innerHTML = "";
     pondSequence = [];
 
+    // Random letters
+    const letters = [
+        "Q","M","R","E","P","S","L","N",
+        "O","K","D","F","G","H","B","C",
+        "W","V","X","J"
+    ];
 
-    symbols.forEach(function(symbol) {
+    // Add the letters needed to spell AYAT
+    letters.push("A", "Y", "A", "T");
 
-        symbol.addEventListener("click", function(event) {
+    // Shuffle them
+    letters.sort(() => Math.random() - 0.5);
+
+    letters.forEach(function(letter, index) {
+
+        const element = document.createElement("div");
+
+        element.className = "pondLetter";
+        element.textContent = letter;
+
+        element.style.setProperty(
+            "--letter-x",
+            (10 + Math.random() * 80) + "%"
+        );
+
+        element.style.setProperty(
+            "--letter-y",
+            (15 + Math.random() * 65) + "%"
+        );
+
+        element.style.setProperty(
+            "--letter-delay",
+            (Math.random() * 2) + "s"
+        );
+
+        element.style.setProperty(
+            "--letter-duration",
+            (4 + Math.random() * 3) + "s"
+        );
+
+        element.dataset.letter = letter;
+
+        element.addEventListener("click", function(event) {
 
             event.stopPropagation();
 
+            const selectedLetter = element.dataset.letter;
 
-            const symbolType =
-                symbol.dataset.symbol;
+            const currentStep = pondSequence.length;
 
-
-            // Already clicked? Ignore it.
-            if (pondSequence.includes(symbolType)) {
-                return;
-            }
-
-
-            // Add to sequence
-            pondSequence.push(symbolType);
-
-
-            // Visual feedback
-            symbol.classList.add(
-                "symbolActive"
-            );
-
-
-            // Check if the player made a mistake
-            const currentStep =
-                pondSequence.length - 1;
-
-
+            // Wrong letter
             if (
-                symbolType !==
+                selectedLetter !==
                 correctPondSequence[currentStep]
             ) {
 
-                showPondMessage(
-                    "Not quite..."
-                );
+                element.classList.add("letterWrong");
 
+                showPondMessage("Not quite...");
 
-                // Reset after a moment
                 setTimeout(function() {
+
+                    element.classList.remove("letterWrong");
 
                     pondSequence = [];
 
-                    symbols.forEach(function(other) {
+                    document
+                        .querySelectorAll(".pondLetter")
+                        .forEach(function(other) {
 
-                        other.classList.remove(
-                            "symbolActive"
-                        );
+                            other.classList.remove(
+                                "letterActive"
+                            );
 
-                    });
+                        });
 
-                }, 900);
-
+                }, 800);
 
                 return;
             }
 
+            // Correct letter
+            pondSequence.push(selectedLetter);
 
-            // Correct symbol
-if (
-    pondSequence.length ===
-    correctPondSequence.length
-) {
+            element.classList.add("letterActive");
 
-    showPondMessage(
-        "The forest remembers."
-    );
+            createLetterRipple(element);
 
+            // Completed AYAT
+            if (
+                pondSequence.length ===
+                correctPondSequence.length
+            ) {
 
-    console.log(
-        "POND PUZZLE COMPLETE"
-    );
+                showPondMessage(
+                    "The forest remembers."
+                );
 
+                console.log(
+                    "POND PUZZLE COMPLETE — AYAT"
+                );
 
-    setTimeout(function() {
+                setTimeout(function() {
 
-        completePondPuzzle();
+                    completePondPuzzle();
 
-    }, 1800);
+                }, 1800);
 
-}
+            }
 
         });
 
+        pondLetters.appendChild(element);
+
     });
 
 }
 
 
-function showPondMessage(message) {
+function createLetterRipple(letter) {
 
-    let messageBox =
-        document.querySelector(".pondMessage");
+    const ripple =
+        document.createElement("div");
 
+    ripple.className = "letterRipple";
 
-    if (!messageBox) {
+    ripple.style.left =
+        letter.offsetLeft +
+        letter.offsetWidth / 2 +
+        "px";
 
-        messageBox =
-            document.createElement("div");
+    ripple.style.top =
+        letter.offsetTop +
+        letter.offsetHeight / 2 +
+        "px";
 
-        messageBox.className =
-            "pondMessage";
+    document
+        .getElementById("pondLetters")
+        .appendChild(ripple);
 
+    setTimeout(function() {
 
-        const pond =
-            document.getElementById("moonPond");
+        ripple.remove();
 
-        if (!pond) return;
-
-
-        pond.appendChild(
-            messageBox
-        );
-
-    }
-
-
-    messageBox.textContent =
-        message;
-
-
-    messageBox.classList.remove(
-        "pondMessageShow"
-    );
-
-
-    requestAnimationFrame(() => {
-
-        messageBox.classList.add(
-            "pondMessageShow"
-        );
-
-    });
+    }, 1000);
 
 }
 
 
 function completePondPuzzle() {
 
-    const forest =
-        document.querySelector(".forestWorld");
-
     const reveal =
         document.getElementById("forestReveal");
 
     if (reveal) {
+
         reveal.classList.remove("show");
+
     }
 
-    if (forest) {
-        forest.classList.add("memoryUnlocked");
+    const world =
+        document.querySelector(".forestWorld");
+
+    if (world) {
+
+        world.classList.add(
+            "memoryUnlocked"
+        );
+
     }
 
     setTimeout(function() {
 
         const counter =
-            document.querySelector(".forestCounter span");
+            document.querySelector(
+                ".forestCounter span"
+            );
 
         if (counter) {
+
             counter.textContent = "02";
+
         }
 
         const memoryReveal =
-            document.getElementById("memoryReveal");
+            document.getElementById(
+                "memoryReveal"
+            );
 
         if (memoryReveal) {
-            memoryReveal.classList.add("show");
+
+            memoryReveal.classList.add(
+                "show"
+            );
+
         }
 
-        console.log("DISCOVERY 02 UNLOCKED");
+        console.log(
+            "DISCOVERY 02 UNLOCKED"
+        );
 
     }, 1200);
 
