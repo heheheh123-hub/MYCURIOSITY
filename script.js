@@ -293,39 +293,14 @@ function createSceneOne() {
             </div>
 
 
-            <!-- DISCOVERY OVERLAY -->
-            <div class="forestReveal" id="forestReveal">
+    document.body.appendChild(sceneOne);
 
-                <div class="revealGlow"></div>
 
-<div class="forestRevealContent">
+    createForestStars();
 
-    <span>DISCOVERY 01 / 25</span>
+    createFireflies();
 
-    <div class="forestRevealLine"></div>
-
-<!-- DISCOVERY 02 -->
-<div class="memoryReveal" id="memoryReveal">
-
-    <div class="memoryRevealContent">
-
-        <span>DISCOVERY 02 / 25</span>
-
-        <div class="memoryRevealLine"></div>
-
-        <div class="memoryPhotoPlaceholder">
-            AYAT
-        </div>
-
-        <h2>The first memory.</h2>
-
-        <p>
-            Some moments deserve to be remembered forever.
-        </p>
-
-        <button id="memoryContinue">
-            CONTINUE
-<!-- DISCOVERY OVERLAY -->
+    <!-- DISCOVERY 01 -->
 <div class="forestReveal" id="forestReveal">
 
     <div class="revealGlow"></div>
@@ -381,16 +356,6 @@ function createSceneOne() {
     </div>
 
 </div>
-
-    `;
-
-    document.body.appendChild(sceneOne);
-
-
-    createForestStars();
-
-    createFireflies();
-
 
     requestAnimationFrame(() => {
 
