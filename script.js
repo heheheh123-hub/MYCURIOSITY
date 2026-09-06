@@ -739,12 +739,12 @@ function setupPondSymbols() {
 
         element.style.setProperty(
             "--letter-x",
-            (10 + Math.random() * 80) + "%"
+            (20 + Math.random() * 60) + "%"
         );
 
         element.style.setProperty(
             "--letter-y",
-            (15 + Math.random() * 65) + "%"
+            (25 + Math.random() * 45) + "%"
         );
 
         element.style.setProperty(
