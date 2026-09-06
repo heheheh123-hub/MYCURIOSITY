@@ -4145,3 +4145,160 @@ body {
     background: rgba(212,175,55,0.12);
     box-shadow: 0 0 25px rgba(212,175,55,0.3);
 }
+
+
+/* ============================= */
+/* AYAT POND LETTER PUZZLE */
+/* ============================= */
+
+#pondLetters {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.pondLetter {
+    position: absolute;
+
+    left: var(--letter-x);
+    top: var(--letter-y);
+
+    transform: translate(-50%, -50%);
+
+    color: #fff1b8;
+    font-family: Georgia, serif;
+    font-size: clamp(18px, 2.5vw, 30px);
+    font-weight: 500;
+
+    text-shadow:
+        0 0 6px rgba(255,241,184,0.9),
+        0 0 18px rgba(212,175,55,0.7),
+        0 0 35px rgba(212,175,55,0.35);
+
+    cursor: pointer;
+    user-select: none;
+    z-index: 120;
+
+    opacity: 0.75;
+
+    animation:
+        pondLetterFloat
+        var(--letter-duration)
+        ease-in-out
+        infinite;
+
+    animation-delay: var(--letter-delay);
+
+    transition:
+        transform 0.35s ease,
+        opacity 0.35s ease,
+        color 0.35s ease,
+        filter 0.35s ease;
+}
+
+.pondLetter:hover {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.35);
+
+    filter:
+        drop-shadow(0 0 8px rgba(255,241,184,1))
+        drop-shadow(0 0 25px rgba(212,175,55,0.9));
+}
+
+.pondLetter.letterActive {
+    opacity: 1;
+
+    color: #ffffff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.5);
+
+    filter:
+        drop-shadow(0 0 12px rgba(255,241,184,1))
+        drop-shadow(0 0 30px rgba(212,175,55,1));
+}
+
+.pondLetter.letterWrong {
+    color: #ff4d6d;
+
+    animation:
+        letterWrong
+        0.35s ease;
+}
+
+
+@keyframes pondLetterFloat {
+
+    0%, 100% {
+        margin-top: -5px;
+    }
+
+    50% {
+        margin-top: 8px;
+    }
+
+}
+
+
+@keyframes letterWrong {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            scale(1.4);
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+}
+
+
+.letterRipple {
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border: 1px solid rgba(255,241,184,0.8);
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+    z-index: 110;
+
+    animation: letterRippleExpand 1s ease-out forwards;
+}
+
+
+@keyframes letterRippleExpand {
+
+    0% {
+        width: 5px;
+        height: 5px;
+        opacity: 0.9;
+    }
+
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+
+}
