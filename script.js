@@ -139,29 +139,22 @@ function createSceneOne() {
 
         <div class="forestWorld">
 
-            <!-- SKY -->
             <div class="forestSky"></div>
 
-            <!-- MOON -->
             <div class="forestMoon">
                 <div class="moonGlow"></div>
             </div>
 
-            <!-- DISTANT MOUNTAINS -->
             <div class="mountains mountainBack"></div>
             <div class="mountains mountainFront"></div>
 
-            <!-- STARS -->
             <div class="forestStars"></div>
 
-            <!-- ATMOSPHERE -->
             <div class="forestFog fogBack"></div>
             <div class="forestFog fogMiddle"></div>
             <div class="forestFog fogFront"></div>
 
-            <!-- BACK TREES -->
             <div class="treeLayer treeBack">
-
                 <div class="tree tree1"></div>
                 <div class="tree tree2"></div>
                 <div class="tree tree3"></div>
@@ -170,47 +163,34 @@ function createSceneOne() {
                 <div class="tree tree6"></div>
                 <div class="tree tree7"></div>
                 <div class="tree tree8"></div>
-
             </div>
 
-            <!-- MIDDLE TREES -->
             <div class="treeLayer treeMiddle">
-
                 <div class="tree tree1"></div>
                 <div class="tree tree2"></div>
                 <div class="tree tree3"></div>
                 <div class="tree tree4"></div>
                 <div class="tree tree5"></div>
                 <div class="tree tree6"></div>
-
             </div>
 
-            <!-- FOREGROUND TREES -->
             <div class="treeLayer treeFront">
-
                 <div class="tree tree1"></div>
                 <div class="tree tree2"></div>
                 <div class="tree tree3"></div>
                 <div class="tree tree4"></div>
-
             </div>
 
-
-            <!-- GROUND -->
             <div class="forestGround">
 
                 <div class="groundMist"></div>
 
                 <div class="forestPath">
-
                     <div class="pathLight"></div>
-
                 </div>
 
             </div>
 
-
-            <!-- GLOWING TREE -->
             <div class="memoryTree" id="memoryTree">
 
                 <div class="treeTrunk"></div>
@@ -231,49 +211,50 @@ function createSceneOne() {
 
             </div>
 
-
-            <!-- FIREFLIES -->
             <div class="fireflies"></div>
 
-            <!-- MOONLIGHT POND -->
+            <div class="moonPond" id="moonPond">
 
-<div class="moonPond" id="moonPond">
+                <div class="pondGlow"></div>
 
-    <div class="pondGlow"></div>
+                <div class="pondReflection">
 
-    <div class="pondReflection">
+                    <div class="reflectionMoon"></div>
 
-        <div class="reflectionMoon"></div>
+                    <div
+                        class="reflectionSymbol symbolA"
+                        data-symbol="moon"
+                    >☾</div>
 
-<div class="reflectionSymbol symbolA" data-symbol="moon">☾</div>
-<div class="reflectionSymbol symbolB" data-symbol="star">★</div>
-<div class="reflectionSymbol symbolC" data-symbol="heart">♥</div>
+                    <div
+                        class="reflectionSymbol symbolB"
+                        data-symbol="star"
+                    >★</div>
 
-    </div>
+                    <div
+                        class="reflectionSymbol symbolC"
+                        data-symbol="heart"
+                    >♥</div>
 
-    <div class="pondRipple ripple1"></div>
-    <div class="pondRipple ripple2"></div>
+                </div>
 
-</div>
+                <div class="pondRipple ripple1"></div>
+                <div class="pondRipple ripple2"></div>
 
-            <!-- FIRST DISCOVERY -->
+            </div>
+
             <div class="forestDiscovery" id="forestDiscovery">
 
                 <div class="discoveryCore"></div>
-
                 <div class="discoveryOrbit"></div>
 
             </div>
 
-
-            <!-- INTRO TEXT -->
             <div class="forestIntro">
 
                 <span>CHAPTER I</span>
 
-                <h1>
-                    The Forest
-                </h1>
+                <h1>The Forest</h1>
 
                 <p>
                     Somewhere in here,<br>
@@ -282,15 +263,72 @@ function createSceneOne() {
 
             </div>
 
-
-            <!-- COUNTER -->
             <div class="forestCounter">
 
                 <span>00</span>
-
                 <small>/ 25</small>
 
             </div>
+
+        </div>
+
+
+        <!-- DISCOVERY 01 -->
+
+        <div class="forestReveal" id="forestReveal">
+
+            <div class="revealGlow"></div>
+
+            <div class="forestRevealContent">
+
+                <span>DISCOVERY 01 / 25</span>
+
+                <div class="forestRevealLine"></div>
+
+                <h2>The beginning.</h2>
+
+                <p>
+                    Every story has a first moment.
+                </p>
+
+                <button id="forestContinue">
+                    CONTINUE
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- DISCOVERY 02 -->
+
+        <div class="memoryReveal" id="memoryReveal">
+
+            <div class="memoryRevealContent">
+
+                <span>DISCOVERY 02 / 25</span>
+
+                <div class="memoryRevealLine"></div>
+
+                <div class="memoryPhotoPlaceholder">
+                    AYAT
+                </div>
+
+                <h2>The first memory.</h2>
+
+                <p>
+                    Some moments deserve to be remembered forever.
+                </p>
+
+                <button id="memoryContinue">
+                    CONTINUE
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
 
 
     document.body.appendChild(sceneOne);
@@ -300,62 +338,6 @@ function createSceneOne() {
 
     createFireflies();
 
-    <!-- DISCOVERY 01 -->
-<div class="forestReveal" id="forestReveal">
-
-    <div class="revealGlow"></div>
-
-    <div class="forestRevealContent">
-
-        <span>DISCOVERY 01 / 25</span>
-
-        <div class="forestRevealLine"></div>
-
-        <h2>
-            The beginning.
-        </h2>
-
-        <p>
-            Every story has a first moment.
-        </p>
-
-        <button id="forestContinue">
-            CONTINUE
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- DISCOVERY 02 -->
-<div class="memoryReveal" id="memoryReveal">
-
-    <div class="memoryRevealContent">
-
-        <span>DISCOVERY 02 / 25</span>
-
-        <div class="memoryRevealLine"></div>
-
-        <div class="memoryPhotoPlaceholder">
-            AYAT
-        </div>
-
-        <h2>
-            The first memory.
-        </h2>
-
-        <p>
-            Some moments deserve to be remembered forever.
-        </p>
-
-        <button id="memoryContinue">
-            CONTINUE
-        </button>
-
-    </div>
-
-</div>
 
     requestAnimationFrame(() => {
 
@@ -374,10 +356,14 @@ function createSceneOne() {
         document.getElementById("forestDiscovery");
 
 
-    discovery.addEventListener(
-        "click",
-        discoverForestMemory
-    );
+    if (discovery) {
+
+        discovery.addEventListener(
+            "click",
+            discoverForestMemory
+        );
+
+    }
 
 
     sceneOne.addEventListener(
@@ -386,28 +372,30 @@ function createSceneOne() {
     );
 
 
-const forestContinue =
-    document.getElementById("forestContinue");
+    const forestContinue =
+        document.getElementById("forestContinue");
 
-if (forestContinue) {
 
-    forestContinue.onclick = function(event) {
+    if (forestContinue) {
 
-        event.stopPropagation();
+        forestContinue.onclick = function(event) {
 
-        const reveal =
-            document.getElementById("forestReveal");
+            event.stopPropagation();
 
-        if (reveal) {
-            reveal.classList.remove("show");
-        }
+            const reveal =
+                document.getElementById("forestReveal");
 
-        console.log("DISCOVERY 01 CLOSED");
+            if (reveal) {
+                reveal.classList.remove("show");
+            }
 
-    };
+            console.log("DISCOVERY 01 CLOSED");
+
+        };
+
+    }
 
 }
-
 
 function createForestStars() {
 
