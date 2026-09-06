@@ -421,15 +421,25 @@ function createSceneOne() {
     );
 
 
-    document
-        .getElementById("forestContinue")
-        .addEventListener("click", () => {
+const forestContinue =
+    document.getElementById("forestContinue");
 
-            document
-                .getElementById("forestReveal")
-                .classList.remove("show");
+if (forestContinue) {
 
-        });
+    forestContinue.onclick = function(event) {
+
+        event.stopPropagation();
+
+        const reveal =
+            document.getElementById("forestReveal");
+
+        if (reveal) {
+            reveal.classList.remove("show");
+        }
+
+        console.log("DISCOVERY 01 CLOSED");
+
+    };
 
 }
 
