@@ -4162,8 +4162,8 @@ body {
 .pondLetter {
     position: absolute;
 
-left: clamp(15%, var(--letter-x), 85%);
-top: clamp(20%, var(--letter-y), 75%);
+left: var(--letter-x);
+top: var(--letter-y);
 
     transform: translate(-50%, -50%);
 
