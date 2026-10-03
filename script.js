@@ -1,6 +1,17 @@
 const starsContainer = document.getElementById("stars");
 const beginButton = document.getElementById("beginButton");
 
+const gameState = {
+    discoveries: 0,
+    discoveriesFound: [],
+
+    gardenUnlocked: true,
+    cinemaUnlocked: false,
+    archiveUnlocked: false,
+    futureUnlocked: false,
+    secretUnlocked: false
+};
+
 function createStars() {
     const amount = window.innerWidth < 600 ? 90 : 170;
 
@@ -94,9 +105,9 @@ function createFirstScene() {
                 discover it yourself.
             </p>
 
-            <button id="enterScene">
-                CONTINUE
-            </button>
+ <button id="enterScene">
+    ENTER THE WORLD
+</button>
 
         </div>
     `;
@@ -122,9 +133,9 @@ function enterFirstScene() {
 
         scene.remove();
 
-        document.body.classList.add("sceneOneActive");
+        document.body.classList.add("gameActive");
 
-        createSceneOne();
+        createWorld();
 
     }, 1200);
 }
