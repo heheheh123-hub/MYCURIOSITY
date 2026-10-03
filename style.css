@@ -2242,22 +2242,22 @@ body {
 /* MOON REFLECTION */
 
 .pondReflection {
-    
+
     position: absolute;
+
     z-index: 10;
 
     left: 50%;
-    top: 15%;
+    top: 10%;
 
-    width: 150px;
-    height: 95px;
+    width: 85%;
+    height: 80%;
 
     transform: translateX(-50%);
 
     overflow: hidden;
 
     opacity: 0.9;
-
 }
 
 
