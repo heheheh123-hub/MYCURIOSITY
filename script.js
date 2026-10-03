@@ -932,3 +932,33 @@ function completePondPuzzle() {
     }, 1200);
 
 }
+
+
+function createWorld() {
+
+    const world = document.createElement("main");
+
+    world.id = "gameWorld";
+
+    world.innerHTML = `
+        <div style="
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Inter, sans-serif;
+            font-size: 30px;
+        ">
+            THE WORLD WORKS 🔥
+        </div>
+    `;
+
+    document.body.appendChild(world);
+
+    requestAnimationFrame(() => {
+        world.classList.add("visible");
+    });
+
+}
