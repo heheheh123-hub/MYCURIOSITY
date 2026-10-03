@@ -4286,7 +4286,6 @@ top: var(--letter-y);
     animation: letterRippleExpand 1s ease-out forwards;
 }
 
-
 @keyframes letterRippleExpand {
 
     0% {
@@ -4300,5 +4299,61 @@ top: var(--letter-y);
         height: 100px;
         opacity: 0;
     }
+
+}
+
+
+/* =========================================
+   POND LETTER FIX
+========================================= */
+
+.moonPond .pondReflection {
+
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    transform: none !important;
+
+    overflow: hidden !important;
+
+    opacity: 1 !important;
+
+    pointer-events: auto !important;
+
+    z-index: 50 !important;
+
+}
+
+
+#pondLetters {
+
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    overflow: hidden !important;
+
+    pointer-events: auto !important;
+
+    z-index: 51 !important;
+
+}
+
+
+.pondLetter {
+
+    z-index: 52 !important;
+
+    pointer-events: auto !important;
 
 }
