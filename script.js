@@ -1,3 +1,5 @@
+alert("SCRIPT.JS IS LOADING");
+
 const starsContainer = document.getElementById("stars");
 const beginButton = document.getElementById("beginButton");
 
