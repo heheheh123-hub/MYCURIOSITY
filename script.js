@@ -933,7 +933,6 @@ function completePondPuzzle() {
 
 }
 
-
 function createWorld() {
 
     const world = document.createElement("main");
@@ -941,24 +940,322 @@ function createWorld() {
     world.id = "gameWorld";
 
     world.innerHTML = `
-        <div style="
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: Inter, sans-serif;
-            font-size: 30px;
-        ">
-            THE WORLD WORKS 🔥
+
+        <div class="worldSky"></div>
+
+        <div class="worldGlow"></div>
+
+        <!-- HEADER -->
+
+        <div class="worldHeader">
+
+            <span class="worldLocation">
+                THE WORLD OF AYAT
+            </span>
+
+            <h1>
+                Somewhere between<br>
+                memory and imagination.
+            </h1>
+
         </div>
+
+
+        <!-- DISCOVERY HUD -->
+
+        <div class="discoveryHUD">
+
+            <span>DISCOVERIES</span>
+
+            <strong id="discoveryCount">00</strong>
+
+            <small>/ 18</small>
+
+        </div>
+
+
+        <!-- PLAZA -->
+
+        <div class="plaza">
+
+            <div class="plazaGlow"></div>
+
+            <div class="plazaCircle"></div>
+
+
+            <!-- CENTER -->
+
+            <div class="plazaCore">
+
+                <span>YOU ARE HERE</span>
+
+                <div class="plazaSymbol">✦</div>
+
+            </div>
+
+
+            <!-- GARDEN -->
+
+            <button
+                class="worldLocationCard gardenCard"
+                id="gardenLocation"
+            >
+
+                <span class="locationNumber">I</span>
+
+                <span class="locationName">
+                    THE GARDEN
+                </span>
+
+                <span class="locationHint">
+                    where memories grow
+                </span>
+
+            </button>
+
+
+            <!-- CINEMA -->
+
+            <button
+                class="worldLocationCard cinemaCard lockedLocation"
+                id="cinemaLocation"
+            >
+
+                <span class="locationNumber">II</span>
+
+                <span class="locationName">
+                    THE CINEMA
+                </span>
+
+                <span class="locationHint">
+                    locked
+                </span>
+
+            </button>
+
+
+            <!-- ARCHIVE -->
+
+            <button
+                class="worldLocationCard archiveCard lockedLocation"
+                id="archiveLocation"
+            >
+
+                <span class="locationNumber">III</span>
+
+                <span class="locationName">
+                    THE ARCHIVE
+                </span>
+
+                <span class="locationHint">
+                    locked
+                </span>
+
+            </button>
+
+
+            <!-- FUTURE -->
+
+            <button
+                class="worldLocationCard futureCard lockedLocation"
+                id="futureLocation"
+            >
+
+                <span class="locationNumber">IV</span>
+
+                <span class="locationName">
+                    THE FUTURE
+                </span>
+
+                <span class="locationHint">
+                    locked
+                </span>
+
+            </button>
+
+
+            <!-- UNKNOWN -->
+
+            <button
+                class="worldLocationCard unknownCard"
+                id="unknownLocation"
+            >
+
+                <span class="locationNumber">?</span>
+
+                <span class="locationName">
+                    UNKNOWN
+                </span>
+
+                <span class="locationHint">
+                    something is waiting
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- INSTRUCTION -->
+
+        <div class="worldInstruction">
+
+            <span>EXPLORE</span>
+
+            <p>
+                The world is yours to discover.
+            </p>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            class="locationMessage"
+            id="locationMessage"
+        >
+
+            <div class="locationMessageInner">
+
+                <span id="locationMessageEyebrow">
+                    LOCATION
+                </span>
+
+                <h2 id="locationMessageTitle">
+                    Locked
+                </h2>
+
+                <p id="locationMessageText">
+                    There is nothing here yet.
+                </p>
+
+                <button id="closeLocationMessage">
+                    CLOSE
+                </button>
+
+            </div>
+
+        </div>
+
     `;
 
     document.body.appendChild(world);
 
+
     requestAnimationFrame(() => {
+
         world.classList.add("visible");
+
     });
+
+
+    setupWorldNavigation();
+
+}
+
+function setupWorldNavigation() {
+
+    const garden =
+        document.getElementById("gardenLocation");
+
+    const cinema =
+        document.getElementById("cinemaLocation");
+
+    const archive =
+        document.getElementById("archiveLocation");
+
+    const future =
+        document.getElementById("futureLocation");
+
+    const unknown =
+        document.getElementById("unknownLocation");
+
+
+    garden.addEventListener("click", () => {
+
+        openLocationMessage(
+            "THE GARDEN",
+            "WHERE MEMORIES GROW",
+            "Something in here remembers her."
+        );
+
+    });
+
+
+    cinema.addEventListener("click", () => {
+
+        openLocationMessage(
+            "THE CINEMA",
+            "LOCKED",
+            "You haven't discovered the way in yet."
+        );
+
+    });
+
+
+    archive.addEventListener("click", () => {
+
+        openLocationMessage(
+            "THE ARCHIVE",
+            "LOCKED",
+            "Some memories haven't been uncovered yet."
+        );
+
+    });
+
+
+    future.addEventListener("click", () => {
+
+        openLocationMessage(
+            "THE FUTURE",
+            "LOCKED",
+            "You're not supposed to see this yet."
+        );
+
+    });
+
+
+    unknown.addEventListener("click", () => {
+
+        openLocationMessage(
+            "UNKNOWN",
+            "SOMETHING IS WAITING",
+            "Whatever is behind this place isn't ready to be found."
+        );
+
+    });
+
+
+    document
+        .getElementById("closeLocationMessage")
+        .addEventListener("click", () => {
+
+            document
+                .getElementById("locationMessage")
+                .classList.remove("show");
+
+        });
+
+}
+
+
+function openLocationMessage(title, eyebrow, text) {
+
+    document
+        .getElementById("locationMessageEyebrow")
+        .textContent = eyebrow;
+
+    document
+        .getElementById("locationMessageTitle")
+        .textContent = title;
+
+    document
+        .getElementById("locationMessageText")
+        .textContent = text;
+
+    document
+        .getElementById("locationMessage")
+        .classList.add("show");
 
 }
